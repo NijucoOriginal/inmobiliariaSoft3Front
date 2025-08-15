@@ -1,0 +1,25 @@
+<div class="container">
+  <header class="d-flex justify-content-between align-items-center py-3">
+    <!-- Logo y título -->
+    <a routerLink="/" class="text-decoration-none">
+      <i class="fa-solid fa-ambulance me-2"></i>
+      <span class="fs-4">MI APP</span>
+    </a>
+
+    <!-- Menú -->
+    <ul class="nav ">
+      <li><a routerLink="/" class="nav-link">Inicio</a></li>
+      <li><a routerLink="/reportes" class="nav-link">Reportes</a></li>
+    </ul>
+
+    <!-- Botones -->
+    <div >
+      @if (!isLogged) {
+        <button routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
+        <button routerLink="/registro" class="btn btn-primary">Registro</button>
+      } @else {
+        <button  (click)="logout()" class="btn btn-primary">Logout</button>
+      }
+    </div>
+  </header>
+</div>
