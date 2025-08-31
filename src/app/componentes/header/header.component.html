@@ -1,25 +1,8 @@
-<div class="container">
-  <header class="d-flex justify-content-between align-items-center py-3">
-    <!-- Logo y título -->
-    <a routerLink="/" class="text-decoration-none">
-      <i class="fa-solid fa-ambulance me-2"></i>
-      <span class="fs-4">MI APP</span>
-    </a>
-
-    <!-- Menú -->
-    <ul class="nav ">
-      <li><a routerLink="/" class="nav-link">Inicio</a></li>
-      <li><a routerLink="/reportes" class="nav-link">Reportes</a></li>
-    </ul>
-
-    <!-- Botones -->
-    <div >
-      @if (!isLogged) {
-        <button routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
-        <button routerLink="/registro" class="btn btn-primary">Registro</button>
-      } @else {
-        <button  (click)="logout()" class="btn btn-primary">Logout</button>
-      }
-    </div>
-  </header>
-</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDÉN Inmobiliaria</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
