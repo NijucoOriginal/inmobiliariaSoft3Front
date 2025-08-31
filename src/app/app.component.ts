@@ -11,6 +11,6 @@ import {FooterComponent} from './componentes/footer/footer.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'front-avanzada';
+  title = 'Inmobiliaria Edén';
   footer = 'Universidad del Quindío';
 }
