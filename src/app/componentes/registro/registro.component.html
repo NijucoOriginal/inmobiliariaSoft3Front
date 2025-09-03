@@ -21,18 +21,18 @@
     <p>Crear cuenta de cliente</p>
   </div>
 
-  <form>
+  <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-6">
         <div class="mb-3">
           <label for="firstName" class="form-label">NOMBRE</label>
-          <input type="text" class="form-control" id="firstName" placeholder="Ingresa tu nombre" required>
+          <input type="text" class="form-control" formControlName="nombre" id="firstName" placeholder="Ingresa tu nombre" required>
         </div>
       </div>
       <div class="col-md-6">
         <div class="mb-3">
           <label for="lastName" class="form-label">APELLIDO</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Ingresa tu apellido" required>
+          <input type="text" class="form-control"  formControlName="apellido" id="lastName" placeholder="Ingresa tu apellido" required>
         </div>
       </div>
     </div>
