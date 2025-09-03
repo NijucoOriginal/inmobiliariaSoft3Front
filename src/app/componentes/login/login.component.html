@@ -9,6 +9,12 @@
 </head>
 <body>
 <div class="login-container">
+  <div class="back-button">
+    <button routerLink=" " type="button" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> Volver al Inicio
+    </button>
+  </div>
+
   <div class="login-header">
     <h2>EDÉN</h2>
     <p>Accede a tu cuenta de inmobiliaria</p>
@@ -33,7 +39,7 @@
   </form>
 
   <div class="login-footer">
-    <p>¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
+    <p>¿No tienes una cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
   </div>
 </div>
 

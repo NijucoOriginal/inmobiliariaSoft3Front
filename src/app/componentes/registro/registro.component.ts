@@ -4,10 +4,11 @@ import {NgClass, NgIf} from '@angular/common';
 import {UserRegistrationRequest} from '../../dto/user-registration-request';
 import {UsersService} from '../../servicios/users.service';
 import {ErrorResponse} from '../../dto/error-response';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-registro',
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, RouterLink],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })

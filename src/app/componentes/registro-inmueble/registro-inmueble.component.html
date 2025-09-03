@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Inmueble - EDÉN Inmobiliaria</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+<div class="property-form-container">
+  <div class="back-button">
+    <button type="button" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> Volver al Inicio
+    </button>
+  </div>
+
+  <div class="form-header">
+    <h1>Cuéntanos sobre tu inmueble</h1>
+    <p>Completa la información para publicar tu propiedad</p>
+  </div>
+
+  <div class="form-steps">
+    <div class="step active">1</div>
+    <div class="step">2</div>
+    <div class="step">3</div>
+    <div class="step">4</div>
+  </div>
+
+  <form id="propertyForm">
+    <!-- Sección 1: Información básica -->
+    <div class="form-section">
+      <h3 class="section-title">Información básica</h3>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tipo de negocio</label>
+          <select class="form-select" required>
+            <option value="" selected disabled>Seleccionar</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
+            <option value="permuta">Permuta</option>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tipo de inmueble</label>
+          <select class="form-select" required>
+            <option value="" selected disabled>Seleccionar</option>
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+            <option value="local">Local Comercial</option>
+            <option value="lote">Lote</option>
+            <option value="finca">Finca</option>
+            <option value="oficina">Oficina</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 2: Valor y estado -->
+    <div class="form-section">
+      <h3 class="section-title">Valor y estado</h3>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Precio</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" placeholder="Ej: 250000000" required>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Estrato</label>
+          <select class="form-select" required>
+            <option value="" selected disabled>Seleccionar</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Estado del inmueble</label>
+        <select class="form-select" required>
+          <option value="" selected disabled>Seleccionar</option>
+          <option value="nuevo">Nuevo</option>
+          <option value="usado">Usado</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Sección 3: Espacios y descripción -->
+    <div class="form-section">
+      <h3 class="section-title">Espacios</h3>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Nº Habitaciones</label>
+          <select class="form-select">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Nº Baños</label>
+          <select class="form-select">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Nº Parqueaderos</label>
+          <select class="form-select">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Área construida (m²)</label>
+        <input type="number" class="form-control" placeholder="Ej: 120">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descripción de tu inmueble</label>
+        <textarea class="form-control" placeholder="Describe tu propiedad con detalles importantes..."></textarea>
+      </div>
+    </div>
+
+    <!-- Sección 4: Ubicación -->
+    <div class="form-section">
+      <h3 class="section-title">Agrega la ubicación de tu inmueble</h3>
+
+      <div class="mb-3 location-search">
+        <label class="form-label">Dirección o punto de referencia</label>
+        <input type="text" class="form-control" id="locationSearch" placeholder="Buscar dirección...">
+        <div class="suggestions-box" id="suggestionsBox">
+          <div class="suggestion-item">Armenia, Quindío</div>
+          <div class="suggestion-item">Primero de Compensa</div>
+          <div class="suggestion-item">Armas Hotel Parque de...</div>
+          <div class="suggestion-item">Campestre del Meson Intanillo</div>
+          <div class="suggestion-item">Tramisportes de Armenia GIBRALTAR</div>
+          <div class="suggestion-item">Parrilla El Limonar</div>
+          <div class="suggestion-item">Super Inter Las Americas</div>
+          <div class="suggestion-item">Terminal de Armenia</div>
+          <div class="suggestion-item">B.R. SAN JOSÉ</div>
+          <div class="suggestion-item">Portal del Quindío</div>
+          <div class="suggestion-item">Urb Las Mercedes Del Nte...</div>
+          <div class="suggestion-item">LA NUEVA CECILLA</div>
+          <div class="suggestion-item">Gimnasio Smart Fit - Mocawa Plaza</div>
+          <div class="suggestion-item">Alto del Rio</div>
+          <div class="suggestion-item">Cerro El Castillo - Despegue Parapente</div>
+          <div class="suggestion-item">Calarcá</div>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <div id="propertyMap"></div>
+        <div class="map-overlay">
+          <small>Arrastra el marcador para ajustar la ubicación</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 5: Imágenes -->
+    <div class="form-section">
+      <h3 class="section-title">Imágenes de tu inmueble</h3>
+
+      <div class="image-upload" id="imageUpload">
+        <div class="upload-icon">
+          <i class="bi bi-cloud-arrow-up"></i>
+        </div>
+        <p>Haz clic o arrastra imágenes aquí para subirlas</p>
+        <p class="text-muted">Máximo 10 imágenes (JPEG, PNG)</p>
+      </div>
+
+      <div id="imagePreview" class="mt-3 row"></div>
+    </div>
+
+    <!-- Sección 6: Información de contacto -->
+    <div class="form-section">
+      <h3 class="section-title">Información de contacto</h3>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Teléfono de contacto</label>
+          <input type="tel" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-navigation">
+      <button type="button" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver al Inicio
+      </button>
+      <button type="submit" class="btn btn-primary">Publicar Inmueble</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Inicializar el mapa
+  function initMap() {
+    // Coordenadas de Armenia, Quindío
+    const armeniaCoords = [4.533, -75.681];
+
+    // Crear el mapa
+    const map = L.map('propertyMap').setView(armeniaCoords, 13);
+
+    // Añadir capa de tiles de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Añadir marcador inicial
+    const marker = L.marker(armeniaCoords, {
+      draggable: true
+    }).addTo(map);
+
+    // Actualizar la dirección cuando se mueve el marcador
+    marker.on('dragend', function() {
+      const position = marker.getLatLng();
+      // Aquí podrías implementar geocodificación inversa para obtener la dirección
+      document.getElementById('locationSearch').value = `${position.lat.toFixed(4)}, ${position.lng.toFixed(4)}`;
+    });
+
+    // Añadir control de escala
+    L.control.scale({metric: true, imperial: false}).addTo(map);
+  }
+
+  // Inicializar el mapa cuando el documento esté listo
+  document.addEventListener('DOMContentLoaded', function() {
+    initMap();
+
+    // Funcionalidad para el buscador de ubicación
+    const locationSearch = document.getElementById('locationSearch');
+    const suggestionsBox = document.getElementById('suggestionsBox');
+
+    locationSearch.addEventListener('focus', function() {
+      suggestionsBox.style.display = 'block';
+    });
+
+    locationSearch.addEventListener('blur', function() {
+      // Ocultar sugerencias después de un pequeño retraso
+      setTimeout(() => {
+        suggestionsBox.style.display = 'none';
+      }, 200);
+    });
+
+    // Seleccionar una sugerencia
+    document.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', function() {
+        locationSearch.value = this.textContent;
+        suggestionsBox.style.display = 'none';
+
+        // Aquí podrías implementar geocodificación para centrar el mapa
+        // en la ubicación seleccionada
+      });
+    });
+
+    // Funcionalidad para subir imágenes
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageUpload.addEventListener('click', function() {
+      // Crear input file dinámicamente
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.multiple = true;
+      fileInput.accept = 'image/jpeg,image/png';
+
+      fileInput.addEventListener('change', function() {
+        // Procesar archivos seleccionados
+        if (this.files && this.files.length > 0) {
+          handleImageFiles(this.files);
+        }
+      });
+
+      fileInput.click();
+    });
+
+    // Simulación de subida de imágenes
+    imageUpload.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      this.style.borderColor = '#10bb82';
+      this.style.backgroundColor = '#c7fae9';
+    });
+
+    imageUpload.addEventListener('dragleave', function() {
+      this.style.borderColor = '#ddd';
+      this.style.backgroundColor = 'transparent';
+    });
+
+    imageUpload.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.style.borderColor = '#ddd';
+      this.style.backgroundColor = 'transparent';
+
+      // Procesar archivos arrastrados
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleImageFiles(e.dataTransfer.files);
+      }
+    });
+
+    function handleImageFiles(files) {
+      // Limitar a 10 imágenes
+      const allowedFiles = Array.from(files).slice(0, 10);
+
+      // Limpiar previsualización anterior si es necesario
+      imagePreview.innerHTML = '';
+
+      // Mostrar previsualización de imágenes
+      allowedFiles.forEach(file => {
+        if (file.type.match('image.*')) {
+          const reader = new FileReader();
+
+          reader.onload = function(e) {
+            const col = document.createElement('div');
+            col.className = 'col-md-3 mb-3';
+
+            col.innerHTML = `
+                                <div class="card">
+                                    <img src="${e.target.result}" class="card-img-top" style="height: 100px; object-fit: cover;">
+                                    <div class="card-body p-2">
+                                        <small class="d-block text-truncate">${file.name}</small>
+                                        <button type="button" class="btn btn-sm btn-danger mt-1 w-100">Eliminar</button>
+                                    </div>
+                                </div>
+                            `;
+
+            // Agregar funcionalidad al botón eliminar
+            col.querySelector('button').addEventListener('click', function() {
+              col.remove();
+            });
+
+            imagePreview.appendChild(col);
+          };
+
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // Validación del formulario
+    document.getElementById('propertyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Aquí iría la validación completa y envío del formulario
+      alert('Formulario completado correctamente. En una implementación real, los datos se enviarían al servidor.');
+    });
+  });
+</script>
+</body>
+</html>

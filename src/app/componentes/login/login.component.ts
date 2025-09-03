@@ -6,11 +6,11 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import {AuthService} from '../../servicios/auth.service';
 import { NgIf } from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, MessageModule, NgIf],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, MessageModule, NgIf, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

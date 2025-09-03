@@ -65,6 +65,13 @@ body {
   border-color: #0daa75;
 }
 
+.btn-outline-secondary {
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 600;
+  width: 100%;
+}
+
 .form-label {
   font-weight: 500;
   margin-bottom: 8px;
@@ -117,3 +124,8 @@ body {
   font-size: 0.9rem;
   color: #6c757d;
 }
+
+.back-button {
+  margin-bottom: 20px;
+}
+
