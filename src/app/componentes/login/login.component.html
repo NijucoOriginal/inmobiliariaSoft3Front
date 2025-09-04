@@ -20,22 +20,22 @@
     <p>Accede a tu cuenta de inmobiliaria</p>
   </div>
 
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="username" class="form-label">USUARIO</label>
-      <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario">
+      <input type="text" class="form-control" formControlName="email" id="username" placeholder="Ingresa tu usuario">
     </div>
 
     <div class="mb-3">
       <label for="password" class="form-label">CONTRASEÑA</label>
-      <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+      <input type="password" class="form-control" formControlName="contrasenia" id="password" placeholder="Ingresa tu contraseña">
     </div>
 
     <div class="forgot-password">
       <a routerLink="/recuperar">¿Olvidó su contraseña?</a>
     </div>
 
-    <button type="submit" class="btn btn-primary">LOGIN</button>
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">LOGIN</button>
   </form>
 
   <div class="login-footer">

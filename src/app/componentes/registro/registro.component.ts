@@ -42,7 +42,7 @@ export class RegistroComponent {
     const newUser = this.registroForm.value as UserRegistrationRequest;
     this.usersService.registrar(newUser).subscribe({
       next: ( data) => {
-        console.log('El usuario ha sido creado correctamente: ', data);
+        console.log('El usuario ha sido registrado correctamente: ', data);
         this.result = 'Usuario registrado correctamente';
         this.classResult = 'success';
       },

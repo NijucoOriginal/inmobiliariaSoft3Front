@@ -11,16 +11,7 @@ import {AuthService} from '../../servicios/auth.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  title = 'MI APP';
-  isLogged = false;
+  title = 'Inmobiliaria edén';
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.isLogged = this.authService.isAuthenticated();
-  }
 
-  public logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-    this.isLogged = false; // Actualiza estado local
-  }
 }

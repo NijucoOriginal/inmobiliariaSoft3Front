@@ -26,36 +26,54 @@
       <div class="col-md-6">
         <div class="mb-3">
           <label for="firstName" class="form-label">NOMBRE</label>
-          <input type="text" class="form-control" formControlName="nombre" id="firstName" placeholder="Ingresa tu nombre" required>
+          <input type="text" class="form-control" formControlName="nombre" id="firstName" placeholder="Ingresa tu nombre" required >
+          <div *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+            Debe escribir su nombre.
+          </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="mb-3">
           <label for="lastName" class="form-label">APELLIDO</label>
           <input type="text" class="form-control"  formControlName="apellido" id="lastName" placeholder="Ingresa tu apellido" required>
+          <div *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
+            Debe escribir su apellido.
+          </div>
         </div>
       </div>
     </div>
 
     <div class="mb-3">
       <label for="documentId" class="form-label">DOCUMENTO DE IDENTIDAD</label>
-      <input type="text" class="form-control" id="documentId" placeholder="Número de documento" required>
+      <input type="text" class="form-control" id="documentId" formControlName="documentoIdentidad" placeholder="Número de documento" required>
+      <div *ngIf="registroForm.get('documentoIdentidad')?.invalid && registroForm.get('documentoIdentidad')?.touched">
+        Debe escribir su documento de identidad.
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="email" class="form-label">CORREO ELECTRÓNICO</label>
-      <input type="email" class="form-control"  formControlName="documentoIdentidad" id="email" placeholder="ejemplo@correo.com" required>
+      <input type="email" class="form-control"  formControlName="email" id="email" placeholder="ejemplo@correo.com" required>
+      <div *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched">
+        Debe escribir su correo electronico.
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="phone" class="form-label">TELÉFONO</label>
       <input type="tel" class="form-control" formControlName="telefono" id="phone" placeholder="Número de teléfono" required>
+      <div *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+        Debe escribir su telefono.
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="password" class="form-label">CONTRASEÑA</label>
       <div class="password-toggle">
         <input type="password" class="form-control" id="password" formControlName="password" placeholder="Crea una contraseña segura" required>
+        <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched">
+          Debe escribir su contraseña.
+        </div>
         <span class="password-toggle-icon" id="togglePassword">
                         <i class="bi bi-eye"></i>
                     </span>
@@ -66,6 +84,9 @@
       <label for="confirmPassword" class="form-label">CONFIRMAR CONTRASEÑA</label>
       <div class="password-toggle">
         <input type="password" class="form-control" id="confirmPassword" formControlName="confirmpassword" placeholder="Repite tu contraseña" required>
+        <div *ngIf="registroForm.get('confirmpassword')?.invalid && registroForm.get('confirmpassword')?.touched">
+          Debe confirmar su contraseña.
+        </div>
         <span class="password-toggle-icon" id="toggleConfirmPassword">
                         <i class="bi bi-eye"></i>
                     </span>
@@ -74,6 +95,9 @@
 
     <div class="mb-3 form-check">
       <input type="checkbox" formControlName="terminosycondiciones" class="form-check-input" id="termsCheck" required>
+      <div *ngIf="registroForm.get('terminosycondiciones')?.invalid && registroForm.get('terminosycondiciones')?.touched">
+        Porfavor, acepto los terminos y condiciones.
+      </div>
       <label class="form-check-label terms-text" for="termsCheck">
         Acepto los <a href="#">términos y condiciones</a> y la <a href="#">política de privacidad</a>
       </label>
@@ -86,7 +110,7 @@
       </label>
     </div>
 
-    <button type="submit" class="btn btn-primary">CREAR CUENTA</button>
+    <button type="submit" [disabled]="registroForm.invalid" class="btn btn-primary">CREAR CUENTA</button>
   </form>
 
   <div class="register-footer">

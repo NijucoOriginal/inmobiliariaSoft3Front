@@ -14,4 +14,5 @@ export class UsersService {
   public registrar(user: UserRegistrationRequest): Observable<UserResponse> {
     return this.http.post<UserResponse>(`${this.url}`, user);
   }
+
 }
