@@ -26,6 +26,7 @@ export class RegistroComponent {
         nombre: ['', [Validators.required]],
         apellido: ['', [Validators.required]],
         documentoIdentidad: ['', [Validators.required]],
+        telefono: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         dateBirth: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],

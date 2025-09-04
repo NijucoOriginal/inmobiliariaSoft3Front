@@ -44,18 +44,18 @@
 
     <div class="mb-3">
       <label for="email" class="form-label">CORREO ELECTRÓNICO</label>
-      <input type="email" class="form-control" id="email" placeholder="ejemplo@correo.com" required>
+      <input type="email" class="form-control"  formControlName="documentoIdentidad" id="email" placeholder="ejemplo@correo.com" required>
     </div>
 
     <div class="mb-3">
       <label for="phone" class="form-label">TELÉFONO</label>
-      <input type="tel" class="form-control" id="phone" placeholder="Número de teléfono" required>
+      <input type="tel" class="form-control" formControlName="telefono" id="phone" placeholder="Número de teléfono" required>
     </div>
 
     <div class="mb-3">
       <label for="password" class="form-label">CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="password" placeholder="Crea una contraseña segura" required>
+        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Crea una contraseña segura" required>
         <span class="password-toggle-icon" id="togglePassword">
                         <i class="bi bi-eye"></i>
                     </span>
@@ -65,7 +65,7 @@
     <div class="mb-3">
       <label for="confirmPassword" class="form-label">CONFIRMAR CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="confirmPassword" placeholder="Repite tu contraseña" required>
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmpassword" placeholder="Repite tu contraseña" required>
         <span class="password-toggle-icon" id="toggleConfirmPassword">
                         <i class="bi bi-eye"></i>
                     </span>
