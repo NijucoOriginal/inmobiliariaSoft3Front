@@ -28,7 +28,8 @@ export class RegistroComponent {
         documentoIdentidad: ['', [Validators.required]],
         telefono: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        dateBirth: ['', [Validators.required]],
+        terminosycondiciones: [false, [Validators.requiredTrue]],
+        recibirPromociones: [false, [Validators.requiredTrue]],
         password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]]
       },

@@ -1,6 +1,8 @@
 export interface UserRegistrationRequest {
+  id: number,
+  nombre: string,
+  apellidos: string,
   email: string,
-  password: string,
-  fullName: string,
-  dateBirth: Date
+  telefono: string,
+  contrasenia: string
 }
