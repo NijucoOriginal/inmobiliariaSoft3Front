@@ -216,8 +216,9 @@ Estilos para los marcadores del mapa
 }
 
 #mapa {
-  width: 100vw;
-  height: 100vh;
+  width: 70vw;
+  height: 85vh;
+  margin: auto;
 }
 
 
