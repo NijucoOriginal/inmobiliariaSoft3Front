@@ -31,8 +31,17 @@
         </li>
       </ul>
       <div class="d-flex">
-        <button routerLink="/login" class="btn btn-outline-primary me-2">Iniciar Sesión</button>
-        <button routerLink="/registro" class="btn btn-primary">Registrarse</button>
+        @if (!isLogged)
+        {
+          <button routerLink="/login" class="btn btn-outline-primary me-2">Iniciar Sesión</button>
+          <button routerLink="/registro" class="btn btn-primary">Registrarse</button>
+        }
+        @else
+        {
+          <button (click)="logout()" class="btn btn-logout" id="logoutBtn">
+            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+          </button>
+        }
       </div>
     </div>
   </div>

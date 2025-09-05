@@ -34,9 +34,17 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: () => {
           this.loading = false;
-          alert('Inicio de sesión exitoso. Token almacenado.');
-          const home = this.authService.getRoles().includes('ADMIN') ? '/home-admin' : '/home-user';
-          alert(home);
+          let home;
+          if (this.authService.getRoles().includes('AGENTE'))
+          {
+            home = '/ventanaAgente';
+          } else if (this.authService.getRoles().includes('ASESOR'))
+          {
+            home = '/ventanaAsesor';
+          } else if (this.authService.getRoles().includes('USUARIO'))
+          {
+            home = '/ventanaUsuario';
+          }
           this.router.navigate([home]).then(() => {
             window.location.reload();
           });

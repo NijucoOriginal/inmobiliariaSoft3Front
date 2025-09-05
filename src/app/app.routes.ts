@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
-//import {HomeAdminComponent} from './componentes/home-admin/home-admin.component';
-import {HomeUserComponent} from './componentes/home-user/home-user.component';
+import {VentanaAgenteComponent} from './componentes/ventana-agente/ventana-agente.component';
+import {VentanaUsuarioComponent} from './componentes/ventana-usuario/ventana-usuario.component';
 import {UnauthorizedComponent} from './componentes/unauthorized/unauthorized.component';
 import {RegistroInmuebleComponent} from './componentes/registro-inmueble/registro-inmueble.component';
 import {RecuperarContraseniaComponent} from './componentes/recuperar-contrasenia/recuperar-contrasenia.component';
@@ -17,8 +17,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
   { path: 'registro', component: RegistroComponent, canActivate: [authGuard]  },
   { path: 'recuperar', component: RecuperarContraseniaComponent, canActivate: [authGuard] },
-  { path: 'home-user', component: HomeUserComponent, canActivate: [rolesGuard], data: { expectedRoles: ["USER"] } },
-  //{ path: 'home-admin', component: HomeAdminComponent, canActivate: [rolesGuard], data: { expectedRoles: ["ADMIN"] } },
+  { path: 'ventanaUsuario', component: VentanaUsuarioComponent, canActivate: [rolesGuard], data: { expectedRoles: ["USUARIO"] } },
+  { path: 'ventanaAgente', component: VentanaAgenteComponent, canActivate: [rolesGuard], data: { expectedRoles: ["AGENTE"] } },
+  { path: 'ventanaAsesor', component: VentanaAgenteComponent, canActivate: [rolesGuard], data: { expectedRoles: ["ASESOR"] } },
   {path: 'registroInmueble', component: RegistroInmuebleComponent, canActivate: [authGuard]},
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', pathMatch: 'full', redirectTo: '/' },
