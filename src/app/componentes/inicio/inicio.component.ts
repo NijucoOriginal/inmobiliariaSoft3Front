@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from '../../servicios/auth.service';
 import {MapaService} from '../../mapa.service';
@@ -12,7 +12,7 @@ import {MapaService} from '../../mapa.service';
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit {
   isLogged = false;
 
   constructor(private authService: AuthService, private router: Router, private mapaService: MapaService) {

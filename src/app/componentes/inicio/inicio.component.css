@@ -134,12 +134,11 @@ body {
   background-color: var(--primary-light);
 }
 
-
 #mapSection {
   padding: 60px 0;
 }
 
-#propertyMap {
+/*#propertyMap {
   width: 100vw;
   height: 100vh;
   border-radius: 15px;
@@ -147,6 +146,8 @@ body {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   margin-top: 20px;
 }
+
+ */
 
 .map-search-container {
   background-color: var(--white);
@@ -176,7 +177,7 @@ body {
   color: white;
 }
 
-/* Estilos para los marcadores del mapa */
+Estilos para los marcadores del mapa
 .custom-marker {
   background-color: var(--primary);
   width: 30px;
@@ -213,4 +214,10 @@ body {
   font-weight: 700;
   font-size: 1.2rem;
 }
+
+#mapa {
+  width: 100vw;
+  height: 100vh;
+}
+
 
