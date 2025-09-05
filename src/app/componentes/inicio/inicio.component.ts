@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from '../../servicios/auth.service';
+import {MapaService} from '../../mapa.service';
 
 @Component({
   selector: 'app-inicio',
@@ -14,8 +15,13 @@ import {AuthService} from '../../servicios/auth.service';
 export class InicioComponent {
   isLogged = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private mapaService: MapaService) {
     this.isLogged = this.authService.isAuthenticated();
+  }
+
+  ngOnInit(): void {
+    this.mapaService.crearMapa();
+
   }
 
   public logout() {
