@@ -23,15 +23,15 @@ export class RegistroComponent {
 
   private crearFormulario() {
     this.registroForm = this.formBuilder.group({
-        nombre: ['', [Validators.required]],
-        apellido: ['', [Validators.required]],
-        documentoIdentidad: ['', [Validators.required]],
-        telefono: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
+        nombre: ['', [Validators.required],Validators.maxLength(100)],
+        apellido: ['', [Validators.required],Validators.maxLength(100)],
+        cedula: ['', [Validators.required],Validators.minLength(10)],
+        numerotelefono: ['', [Validators.required],Validators.maxLength(100)],
+        email: ['', [Validators.required, Validators.email],Validators.maxLength(100)],
         terminosycondiciones: [false, [Validators.requiredTrue]],
         recibirPromociones: [false, [Validators.requiredTrue]],
-        password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-        confirmPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]]
+        contrasena: ['', [Validators.required, Validators.maxLength(100), Validators.minLength(8)]],
+        confirmcontrasena: ['', [Validators.required, Validators.maxLength(100), Validators.minLength(8)]]
       },
       {
         validators: this.passwordMatchValidator

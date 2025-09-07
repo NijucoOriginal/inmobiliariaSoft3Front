@@ -45,8 +45,8 @@
 
     <div class="mb-3">
       <label for="documentId" class="form-label">DOCUMENTO DE IDENTIDAD</label>
-      <input type="text" class="form-control" id="documentId" formControlName="documentoIdentidad" placeholder="Número de documento" required>
-      <div *ngIf="registroForm.get('documentoIdentidad')?.invalid && registroForm.get('documentoIdentidad')?.touched">
+      <input type="text" class="form-control" id="documentId" formControlName="cedula" placeholder="Número de documento" required>
+      <div *ngIf="registroForm.get('cedula')?.invalid && registroForm.get('cedula')?.touched">
         Debe escribir su documento de identidad.
       </div>
     </div>
@@ -61,8 +61,8 @@
 
     <div class="mb-3">
       <label for="phone" class="form-label">TELÉFONO</label>
-      <input type="tel" class="form-control" formControlName="telefono" id="phone" placeholder="Número de teléfono" required>
-      <div *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+      <input type="tel" class="form-control" formControlName="numerotelefono" id="phone" placeholder="Número de teléfono" required>
+      <div *ngIf="registroForm.get('numerotelefono')?.invalid && registroForm.get('numerotelefono')?.touched">
         Debe escribir su telefono.
       </div>
     </div>
@@ -70,8 +70,8 @@
     <div class="mb-3">
       <label for="password" class="form-label">CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Crea una contraseña segura" required>
-        <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched">
+        <input type="password" class="form-control" id="password" formControlName="contrasena" placeholder="Crea una contraseña segura" required>
+        <div *ngIf="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched">
           Debe escribir su contraseña.
         </div>
         <span class="password-toggle-icon" id="togglePassword">
@@ -83,8 +83,8 @@
     <div class="mb-3">
       <label for="confirmPassword" class="form-label">CONFIRMAR CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmpassword" placeholder="Repite tu contraseña" required>
-        <div *ngIf="registroForm.get('confirmpassword')?.invalid && registroForm.get('confirmpassword')?.touched">
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmcontrasena" placeholder="Repite tu contraseña" required>
+        <div *ngIf="registroForm.get('confirmcontrasena')?.invalid && registroForm.get('confirmcontrasena')?.touched">
           Debe confirmar su contraseña.
         </div>
         <span class="password-toggle-icon" id="toggleConfirmPassword">

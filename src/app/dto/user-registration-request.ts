@@ -1,8 +1,8 @@
 export interface UserRegistrationRequest {
-  id: number,
+  cedula: string,
   nombre: string,
-  apellidos: string,
+  apellido: string,
   email: string,
-  telefono: string,
-  contrasenia: string
+  numerotelefono: string,
+  contrasena: string,
 }
