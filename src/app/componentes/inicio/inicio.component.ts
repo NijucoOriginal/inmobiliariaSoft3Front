@@ -14,9 +14,11 @@ import {MapaService} from '../../mapa.service';
 })
 export class InicioComponent implements OnInit {
   isLogged = false;
+  usuarioConectado='';
 
   constructor(private authService: AuthService, private router: Router, private mapaService: MapaService) {
     this.isLogged = this.authService.isAuthenticated();
+    this.usuarioConectado=this.authService.getRoles();
   }
 
   ngOnInit(): void {

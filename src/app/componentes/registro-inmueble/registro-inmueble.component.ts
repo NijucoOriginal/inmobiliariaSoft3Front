@@ -3,11 +3,13 @@ import {MapaService} from '../../mapa.service';
 import {FormBuilder, FormGroup, isFormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UsersService} from '../../servicios/users.service';
 import {RegistroInmuebleRequest} from '../../dto/registro-inmueble-request';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-registro-inmueble',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './registro-inmueble.component.html',
   styleUrl: './registro-inmueble.component.css'
@@ -18,6 +20,7 @@ export class RegistroInmuebleComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private mapaService: MapaService) {
     this.crearFormularioTexto();
   }
+
 
   //Revisar si funciona
   ngOnInit(): void {
@@ -38,7 +41,15 @@ export class RegistroInmuebleComponent implements OnInit{
       tipoNegocio: ['', [Validators.required]],
       tipoInmueble: ['', [Validators.required]],
       precio: ['', [Validators.required]],
-      Estrato: ['', [Validators.required]],
+      estrato: ['', [Validators.required]],
+      estadoinmueble: ['', [Validators.required]],
+      habitaciones: ['', [Validators.required]],
+      banos: ['', [Validators.required]],
+      parqueaderos: ['', [Validators.required]],
+      medidas: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       terminosycondiciones: [false, [Validators.requiredTrue]],
       recibirPromociones: [false, [Validators.requiredTrue]],
@@ -54,7 +65,6 @@ export class RegistroInmuebleComponent implements OnInit{
   onSubmit() {
 
   }
-
 
 }
 

@@ -11,40 +11,44 @@
         <li class="nav-item">
           <a class="nav-link active" href="#">INICIO</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/registroInmueble">VENTA</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/registroInmueble">ALQUILER</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/registroInmueble">PERMUTA</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ASESORES</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">CONÓCENOS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">CONTÁCTENOS</a>
-        </li>
-      </ul>
-      <div class="d-flex">
-        @if (!isLogged)
+        <!--@if(usuarioConectado==='USUARIO')
         {
-          <button routerLink="/login" class="btn btn-outline-primary me-2">Iniciar Sesión</button>
-          <button routerLink="/registro" class="btn btn-primary">Registrarse</button>
-        }
-        @else
-        {
-          <button (click)="logout()" class="btn btn-logout" id="logoutBtn">
-            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-          </button>
-        }
-      </div>
-    </div>
-  </div>
+        -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registroInmueble">VENTA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registroInmueble">ALQUILER</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registroInmueble">PERMUTA</a>
+          </li>
+        <!--} -->
+       <li class="nav-item">
+         <a class="nav-link" href="#">ASESORES</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="#">CONÓCENOS</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="#">CONTÁCTENOS</a>
+       </li>
+     </ul>
+     <div class="d-flex">
+       @if (!isLogged)
+       {
+         <button routerLink="/login" class="btn btn-outline-primary me-2">Iniciar Sesión</button>
+         <button routerLink="/registro" class="btn btn-primary">Registrarse</button>
+       }
+       @else
+       {
+         <button (click)="logout()" class="btn btn-logout" id="logoutBtn">
+           <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+         </button>
+       }
+     </div>
+   </div>
+ </div>
 </nav>
 
 <!-- Hero Section -->
