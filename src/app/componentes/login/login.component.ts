@@ -22,7 +22,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      contrasenia: ['', Validators.required]
+      contrasena: ['', Validators.required]
     });
   }
 
@@ -30,8 +30,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loading = true;
       this.errorMessage = null;
-      const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe({
+      const { email, contrasena } = this.loginForm.value;
+      this.authService.login(email, contrasena).subscribe({
         next: () => {
           this.loading = false;
           let home;
@@ -41,7 +41,7 @@ export class LoginComponent {
           } else if (this.authService.getRoles().includes('ASESOR'))
           {
             home = '/ventanaAsesor';
-          } else if (this.authService.getRoles().includes('USUARIO'))
+          } else if (this.authService.getRoles().includes('CLIENTE'))
           {
             home = '/ventanaUsuario';
           }

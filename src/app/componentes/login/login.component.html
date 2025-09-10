@@ -22,18 +22,18 @@
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <label for="username" class="form-label">USUARIO</label>
-      <input type="text" class="form-control" formControlName="email" id="username" placeholder="Ingresa tu usuario">
+      <label for="email" class="form-label">EMAIL</label>
+      <input type="text" class="form-control" formControlName="email" id="email" placeholder="Ingresa tu email">
       <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
         debe de ingresar su correo electronico.
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="password" class="form-label">CONTRASEÑA</label>
-      <input type="password" class="form-control" formControlName="contrasenia" id="password" placeholder="Ingresa tu contraseña">
-      <div *ngIf="loginForm.get('contrasenia')?.invalid && loginForm.get('contrasenia')?.touched">
-        debe de ingresar su contrasenia.
+      <label for="contrasena" class="form-label">CONTRASEÑA</label>
+      <input type="password" class="form-control" formControlName="contrasena" id="contrasena" placeholder="Ingresa tu contraseña">
+      <div *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
+        debe de ingresar su contraseña.
       </div>
     </div>
 

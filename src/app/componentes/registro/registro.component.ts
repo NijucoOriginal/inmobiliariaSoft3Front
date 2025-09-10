@@ -8,7 +8,7 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-registro',
-  imports: [ReactiveFormsModule, NgIf, NgClass, RouterLink],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -25,8 +25,8 @@ export class RegistroComponent {
     this.registroForm = this.formBuilder.group({
         nombre: ['', [Validators.required],Validators.maxLength(100)],
         apellido: ['', [Validators.required],Validators.maxLength(100)],
-        cedula: ['', [Validators.required],Validators.minLength(10)],
-        numerotelefono: ['', [Validators.required],Validators.maxLength(100)],
+        documentoIdentidad: ['', [Validators.required],Validators.minLength(10)],
+        telefono: ['', [Validators.required],Validators.maxLength(100)],
         email: ['', [Validators.required, Validators.email],Validators.maxLength(100)],
         terminosycondiciones: [false, [Validators.requiredTrue]],
         recibirPromociones: [false, [Validators.requiredTrue]],

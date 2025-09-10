@@ -9,7 +9,7 @@ import {ErrorResponse} from '../dto/error-response';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "http://localhost:8080/login";
+  private url = "http://localhost:9020/api/auth/login";
   private readonly TOKEN_KEY = 'authToken';
   private readonly TOKEN_TYPE_KEY = 'tokenType';
   private readonly EXPIRE_AT_KEY = 'expireAt';
@@ -18,12 +18,13 @@ export class AuthService {
 
   /**
    * Envía las credenciales al backend y almacena el token.
-   * @param username Nombre de usuario o correo
-   * @param password Contraseña
+   * @param email Nombre de usuario o correo
+   * @param contrasena Contraseña
    * @returns Observable con la respuesta del servidor
    */
-  login(username: string, password: string): Observable<TokenResponse> {
-    const request: LoginRequest = { username, password };
+  login(email: string, contrasena: string): Observable<TokenResponse> {
+    // Usar los nombres de campos que espera el backend
+    const request = { email: email, contrasena: contrasena };
     return this.http.post<TokenResponse>(this.url, request).pipe(
       tap(response => {
         localStorage.setItem(this.TOKEN_KEY, response.token);
@@ -41,6 +42,7 @@ export class AuthService {
       })
     );
   }
+
 
   /**
    * Verifica si el usuario está autenticado y el token no ha expirado
