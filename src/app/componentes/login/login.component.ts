@@ -34,18 +34,8 @@ export class LoginComponent {
       this.authService.login(email, contrasena).subscribe({
         next: () => {
           this.loading = false;
-          let home;
-          if (this.authService.getRoles().includes('AGENTE'))
-          {
-            home = '/ventanaAgente';
-          } else if (this.authService.getRoles().includes('ASESOR'))
-          {
-            home = '/ventanaAsesor';
-          } else if (this.authService.getRoles().includes('CLIENTE'))
-          {
-            home = '/ventanaUsuario';
-          }
-          this.router.navigate([home]).then(() => {
+          // Redirigir al inicio después de iniciar sesión
+          this.router.navigate(['/']).then(() => {
             window.location.reload();
           });
         },

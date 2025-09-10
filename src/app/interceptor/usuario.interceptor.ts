@@ -9,6 +9,11 @@ export const usuarioInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  // No aplicar el interceptor a las rutas de registro o autenticación
+  if (req.url.includes('/api/usuarios') || req.url.includes('/api/auth')) {
+    return next(req);
+  }
+
   if ( !authService.isAuthenticated() ) {
     return next(req);
   }

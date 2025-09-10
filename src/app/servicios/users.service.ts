@@ -8,7 +8,7 @@ import {UserRegistrationRequest} from '../dto/user-registration-request';
   providedIn: 'root'
 })
 export class UsersService {
-  private url = "http://localhost:9020/usuarios";
+  private url = "http://localhost:9020/api/usuarios";
   constructor(private http: HttpClient) {}
 
   public registrar(user: UserRegistrationRequest): Observable<UserResponse> {

@@ -14,6 +14,7 @@ export class AuthService {
   private readonly TOKEN_TYPE_KEY = 'tokenType';
   private readonly EXPIRE_AT_KEY = 'expireAt';
   private readonly ROLES_KEY = 'roles';
+  private readonly USER_EMAIL_KEY = 'userEmail';
   constructor(private http: HttpClient) {}
 
   /**
@@ -31,6 +32,7 @@ export class AuthService {
         localStorage.setItem(this.TOKEN_TYPE_KEY, response.type);
         localStorage.setItem(this.EXPIRE_AT_KEY, response.expireAt);
         localStorage.setItem(this.ROLES_KEY, JSON.stringify(response.roles));
+        localStorage.setItem(this.USER_EMAIL_KEY, email); // Almacenar el email
       }),
       catchError(error => {
         let errorMsg = 'Error al iniciar sesión';
@@ -64,6 +66,7 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_TYPE_KEY);
     localStorage.removeItem(this.EXPIRE_AT_KEY);
     localStorage.removeItem(this.ROLES_KEY);
+    localStorage.removeItem(this.USER_EMAIL_KEY);
   }
 
   public getToken(): string | null {
@@ -73,5 +76,9 @@ export class AuthService {
   getRoles() {
     const roles = localStorage.getItem(this.ROLES_KEY);
     return roles ? JSON.parse(roles) : [];
+  }
+
+  getUserEmail(): string | null {
+    return localStorage.getItem(this.USER_EMAIL_KEY);
   }
 }
