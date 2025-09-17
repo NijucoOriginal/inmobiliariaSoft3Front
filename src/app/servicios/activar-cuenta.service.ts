@@ -17,7 +17,7 @@ export interface ResendCodeResponse {
   providedIn: 'root'
 })
 export class ActivarCuentaService {
-  private baseUrl = 'http://localhost:9020/api/auth';
+  private baseUrl = 'https://backend-eden.onrender.com/api/auth';
 
   constructor(private http: HttpClient) { }
 
