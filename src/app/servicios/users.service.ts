@@ -8,7 +8,7 @@ import {UserRegistrationRequest} from '../dto/user-registration-request';
   providedIn: 'root'
 })
 export class UsersService {
-  private url = "https://backend-eden.onrender.com/api/usuarios";
+  private url = "https://backend-eden.onrender.com/";
   constructor(private http: HttpClient) {}
 
   public registrar(user: UserRegistrationRequest): Observable<UserResponse> {
