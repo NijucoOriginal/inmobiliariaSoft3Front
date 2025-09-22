@@ -8,7 +8,8 @@ import {UserRegistrationRequest} from '../dto/user-registration-request';
   providedIn: 'root'
 })
 export class UsersService {
-  private url = "https://inmobiliariasoft3back2-0.onrender.com/api/usuarios";
+  //private url = "https://inmobiliariasoft3back2-0.onrender.com/api/usuarios";
+  private url='http://localhost:8080/api/usuarios';
   constructor(private http: HttpClient) {}
 
   public registrar(user: UserRegistrationRequest): Observable<UserResponse> {

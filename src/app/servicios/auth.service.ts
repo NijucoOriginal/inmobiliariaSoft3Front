@@ -9,7 +9,8 @@ import {ErrorResponse} from '../dto/error-response';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "https://backend-eden.onrender.com/api/auth/login";
+  //private url = "https://inmobiliariasoft3back2-0.onrender.com/api/auth/login";
+  private url='http://localhost:8080/api/auth/login';
   private readonly TOKEN_KEY = 'authToken';
   private readonly TOKEN_TYPE_KEY = 'tokenType';
   private readonly EXPIRE_AT_KEY = 'expireAt';
