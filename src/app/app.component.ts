@@ -7,9 +7,8 @@ import {InicioComponent} from './componentes/inicio/inicio.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, HeaderComponent, FooterComponent, InicioComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Inmobiliaria Edén';

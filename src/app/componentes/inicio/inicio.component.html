@@ -286,5 +286,140 @@
   </div>
 </section>
 
+<!--<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  // Inicializar el mapa
+  function initMap() {
+    // Coordenadas de Bogotá
+    const bogotaCoords = [4.7110, -74.0721];
+
+    // Crear el mapa
+    const map = L.map('propertyMap').setView(bogotaCoords, 12);
+
+    // Añadir capa de tiles de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Añadir marcadores de propiedades
+    const properties = [
+      {
+        coords: [4.7110, -74.0721],
+        title: "Casa en Chapinero",
+        price: "$590.000.000",
+        type: "Venta",
+        image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+        beds: 4,
+        baths: 3,
+        area: "180 m²"
+      },
+      {
+        coords: [4.6980, -74.0830],
+        title: "Apartamento en El Poblado",
+        price: "$2.500.000/mes",
+        type: "Alquiler",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+        beds: 3,
+        baths: 2,
+        area: "95 m²"
+      },
+      {
+        coords: [4.7250, -74.0550],
+        title: "Finca en La Calera",
+        price: "$890.000.000",
+        type: "Permuta",
+        image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+        beds: 5,
+        baths: 4,
+        area: "5000 m²"
+      },
+      {
+        coords: [4.6950, -74.0650],
+        title: "Local Comercial",
+        price: "$1.200.000.000",
+        type: "Venta",
+        image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+        beds: 0,
+        baths: 2,
+        area: "250 m²"
+      },
+      {
+        coords: [4.7050, -74.0900],
+        title: "Apartamento Amoblado",
+        price: "$3.200.000/mes",
+        type: "Alquiler",
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+        beds: 2,
+        baths: 2,
+        area: "75 m²"
+      }
+    ];
+
+    // Añadir marcadores al mapa
+    properties.forEach(property => {
+      // Crear un marcador personalizado
+      const customIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<i class="bi bi-house${property.type === 'Alquiler' ? '-heart' : (property.type === 'Permuta' ? '-exchange' : '')}"></i>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 30]
+      });
+
+      const marker = L.marker(property.coords, {icon: customIcon}).addTo(map);
+
+      // Contenido del popup
+      const popupContent = `
+                    <div class="map-popup-content">
+                        <img src="${property.image}" alt="${property.title}">
+                        <h5>${property.title}</h5>
+                        <p class="price">${property.price}</p>
+                        <p><strong>${property.type}</strong> · ${property.beds} Hab · ${property.baths} Baño · ${property.area}</p>
+                        <button class="btn btn-primary btn-sm">Ver Detalles</button>
+                    </div>
+                `;
+
+      marker.bindPopup(popupContent);
+    });
+
+    // Añadir control de búsqueda de ubicación
+    const searchControl = L.control({
+      position: 'topright'
+    });
+
+    searchControl.onAdd = function(map) {
+      const div = L.DomUtil.create('div', 'search-control');
+      div.innerHTML = `
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Buscar...">
+                        <button class="btn btn-primary btn-sm" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                `;
+      return div;
+    };
+
+    searchControl.addTo(map);
+  }
+
+  // Inicializar el mapa cuando el documento esté listo
+  document.addEventListener('DOMContentLoaded', initMap);
+
+  // Funcionalidad para los botones de filtro
+  document.querySelectorAll('.map-filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      // Quitar la clase active de todos los botones
+      document.querySelectorAll('.map-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Añadir la clase active al botón clickeado
+      this.classList.add('active');
+    });
+  });
+</script>
+-->
 
 
