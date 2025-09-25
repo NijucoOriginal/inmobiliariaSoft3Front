@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from '../../servicios/auth.service';
 import {MapaService} from '../../mapa.service';
