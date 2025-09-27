@@ -9,7 +9,7 @@ export const rolesGuard: CanActivateFn = (route, state) => {
     return router.createUrlTree(['/login']);
   }
   const expectedRoles: string[] = route.data['expectedRoles'];
-  const userRoles = authService.getRoles();
+  const userRoles = authService.decodeTokenRoles(); // Usar decodeTokenRoles en lugar de getRoles
   const hasRole = expectedRoles.some(role => userRoles.includes(role));
   return hasRole ? true : router.createUrlTree(['/unauthorized']);
 };
