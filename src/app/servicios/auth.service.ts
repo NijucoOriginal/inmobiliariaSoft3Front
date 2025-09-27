@@ -5,12 +5,14 @@ import {LoginRequest} from '../dto/login-request';
 import {TokenResponse} from '../dto/token-response';
 import {ErrorResponse} from '../dto/error-response';
 import { RedireccionService } from './redireccion.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "https://backend-eden.onrender.com/api/auth/login";
+  private url = "https://inmobiliariasoft3back2-0.onrender.com/api/auth/login";
+  //private url='http://localhost:8080/api/auth';
   private readonly TOKEN_KEY = 'authToken';
   private readonly TOKEN_TYPE_KEY = 'tokenType';
   private readonly EXPIRE_AT_KEY = 'expireAt';
@@ -98,5 +100,23 @@ export class AuthService {
 
   getUserEmail(): string | null {
     return localStorage.getItem(this.USER_EMAIL_KEY);
+  }
+
+  /**
+   * Decodifica el token JWT para extraer información como roles.
+   * @returns Roles extraídos del token o un arreglo vacío si el token es inválido.
+   */
+  decodeTokenRoles(): string[] {
+    const token = this.getToken();
+    if (!token) {
+      return [];
+    }
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.rol ? [decoded.rol] : [];
+    } catch (e) {
+      console.error('Error al decodificar el token:', e);
+      return [];
+    }
   }
 }
