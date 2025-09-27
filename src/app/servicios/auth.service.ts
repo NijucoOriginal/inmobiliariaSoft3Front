@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {LoginRequest} from '../dto/login-request';
 import {TokenResponse} from '../dto/token-response';
 import {ErrorResponse} from '../dto/error-response';
+import { RedireccionService } from './redireccion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
   private readonly EXPIRE_AT_KEY = 'expireAt';
   private readonly ROLES_KEY = 'roles';
   private readonly USER_EMAIL_KEY = 'userEmail';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private redireccionService: RedireccionService) {}
 
   /**
    * Envía las credenciales al backend y almacena el token.
@@ -33,6 +34,9 @@ export class AuthService {
         localStorage.setItem(this.EXPIRE_AT_KEY, response.expireAt);
         localStorage.setItem(this.ROLES_KEY, JSON.stringify(response.roles));
         localStorage.setItem(this.USER_EMAIL_KEY, email); // Almacenar el email
+
+        // Delegar redirección al servicio de redirección
+        this.redireccionService.redirigirSegunRol(response.roles);
       }),
       catchError(error => {
         let errorMsg = 'Error al iniciar sesión';
@@ -48,14 +52,21 @@ export class AuthService {
 
   /**
    * Verifica si el usuario está autenticado y el token no ha expirado
+   * Si el token está corrupto o expirado, lo elimina automáticamente
    */
   isAuthenticated(): boolean {
     const expireAt = localStorage.getItem(this.EXPIRE_AT_KEY);
-    if (!expireAt) {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (!expireAt || !token) {
+      this.logout(); // Limpia cualquier estado inconsistente
       return false;
     }
     const expireDate = new Date(expireAt);
-    return !!localStorage.getItem(this.TOKEN_KEY) && expireDate > new Date();
+    if (expireDate <= new Date()) {
+      this.logout(); // Token expirado, limpiar
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -75,7 +86,14 @@ export class AuthService {
 
   getRoles() {
     const roles = localStorage.getItem(this.ROLES_KEY);
-    return roles ? JSON.parse(roles) : [];
+    if (!roles || roles === "undefined") {
+      return [];
+    }
+    try {
+      return JSON.parse(roles);
+    } catch (e) {
+      return [];
+    }
   }
 
   getUserEmail(): string | null {
