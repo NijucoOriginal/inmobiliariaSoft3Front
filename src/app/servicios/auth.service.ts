@@ -11,8 +11,8 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "https://inmobiliariasoft3back2-0.onrender.com/api/auth/login";
-  //private url='http://localhost:8080/api/auth';
+  //private url = "https://inmobiliariasoft3back2-0.onrender.com/api/auth/login";
+  private url='http://localhost:8080/api/auth';
   private readonly TOKEN_KEY = 'authToken';
   private readonly TOKEN_TYPE_KEY = 'tokenType';
   private readonly EXPIRE_AT_KEY = 'expireAt';
@@ -27,18 +27,20 @@ export class AuthService {
    * @returns Observable con la respuesta del servidor
    */
   login(email: string, contrasena: string): Observable<TokenResponse> {
+    const urlLogin = `${this.url}/login`;
     // Usar los nombres de campos que espera el backend
     const request = { email: email, contrasena: contrasena };
-    return this.http.post<TokenResponse>(this.url, request).pipe(
+    return this.http.post<TokenResponse>(urlLogin, request).pipe(
       tap(response => {
+        const tokenDecodificado: any=jwtDecode(response.token);
         localStorage.setItem(this.TOKEN_KEY, response.token);
-        localStorage.setItem(this.TOKEN_TYPE_KEY, response.type);
-        localStorage.setItem(this.EXPIRE_AT_KEY, response.expireAt);
-        localStorage.setItem(this.ROLES_KEY, JSON.stringify(response.roles));
+        localStorage.setItem(this.TOKEN_TYPE_KEY, tokenDecodificado.type);
+        localStorage.setItem(this.EXPIRE_AT_KEY, tokenDecodificado.exp);
+        localStorage.setItem(this.ROLES_KEY, JSON.stringify(tokenDecodificado.rol));
         localStorage.setItem(this.USER_EMAIL_KEY, email); // Almacenar el email
 
         // Delegar redirección al servicio de redirección
-        this.redireccionService.redirigirSegunRol(response.roles);
+        this.redireccionService.redirigirSegunRol(tokenDecodificado.rol);
       }),
       catchError(error => {
         let errorMsg = 'Error al iniciar sesión';

@@ -93,8 +93,8 @@ export class ActivarComponent implements OnInit {
 
     // Verificar el código con el backend
     this.activarCuentaService.activateAccount(activationCode).subscribe({
-      next: (response: ActivationResponse) => {
-        this.successMessage = response.message || 'Usuario verificado correctamente';
+      next: (response: string) => {
+        this.successMessage = response || 'Usuario verificado correctamente';
         this.showAlert('success', this.successMessage);
         // Limpiar el email almacenado
         localStorage.removeItem('pendingActivationEmail');
