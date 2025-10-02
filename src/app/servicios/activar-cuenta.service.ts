@@ -17,8 +17,8 @@ export interface ResendCodeResponse {
   providedIn: 'root'
 })
 export class ActivarCuentaService {
-  private baseUrl = 'https://inmobiliariasoft3back2-0.onrender.com/api/auth';
-  //private baseUrl='http://localhost:8080/api/auth';
+  //private baseUrl = 'https://inmobiliariasoft3back2-0.onrender.com/api/auth';
+  private baseUrl='http://localhost:8080/api/auth';
   constructor(private http: HttpClient) { }
 
   /**
@@ -26,9 +26,9 @@ export class ActivarCuentaService {
    * @param code Código de activación de 6 dígitos
    * @returns Observable con la respuesta de activación
    */
-  activateAccount(code: string): Observable<ActivationResponse> {
+  activateAccount(code: string): Observable<string> {
     const url = `${this.baseUrl}/activate/${code}`;
-    return this.http.get<ActivationResponse>(url);
+    return this.http.get(url, { responseType: 'text' });
   }
 
   /**
