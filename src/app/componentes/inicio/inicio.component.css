@@ -177,7 +177,7 @@ body {
   color: white;
 }
 
-Estilos para los marcadores del mapa
+/* Estilos para los marcadores del mapa */
 .custom-marker {
   background-color: var(--primary);
   width: 30px;
@@ -219,6 +219,7 @@ Estilos para los marcadores del mapa
   width: 70vw;
   height: 85vh;
   margin: auto;
+  /* Asegurarse de que el contenedor del mapa sea visible */
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
-
-
