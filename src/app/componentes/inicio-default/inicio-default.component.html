@@ -29,10 +29,10 @@
           <a class="nav-link" routerLink="/login">CONTÁCTENOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-iniciar-sesion" (click)="redireccionamiento.redirigirALogin()">INICIAR SESIÓN</a>
+          <a class="nav-link btn btn-iniciar-sesion" (click)="redirigirALogin()">INICIAR SESIÓN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-registrarse" (click)="redireccionamiento.redirigirARegistro()">REGISTRARSE</a>
+          <a class="nav-link btn btn-registrarse" (click)="redirigirARegistro()">REGISTRARSE</a>
         </li>
       </ul>
     </div>
@@ -47,7 +47,7 @@
         <div class="col-lg-6">
           <h1 class="display-4 fw-bold mb-4">Bienvenido a EDÉN</h1>
           <p class="lead mb-4">Casas, apartamentos, locales, lotes y fincas para todos tus necesidades.</p>
-          <a class="btn btn-primary btn-lg" (click)="redireccionamiento.redirigirALogin()">Explorar Propiedades</a>
+          <a class="btn btn-primary btn-lg" (click)="redirigirALogin()">Explorar Propiedades</a>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
             <span><i class="bi bi-droplet"></i> {{propiedad.banos}} Baños</span>
           </div>
           <div class="d-grid gap-2 mt-3">
-            <a class="btn btn-outline-primary w-100" (click)="redireccionamiento.redirigirALogin()">Ver Detalles</a>
+            <a class="btn btn-outline-primary w-100" (click)="redirigirALogin()">Ver Detalles</a>
           </div>
         </div>
       </div>

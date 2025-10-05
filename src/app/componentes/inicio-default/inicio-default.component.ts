@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { RedireccionService } from '../../servicios/redireccion.service';
 
 @Component({
   selector: 'app-inicio-default',
@@ -10,7 +9,7 @@ import { RedireccionService } from '../../servicios/redireccion.service';
   styleUrl: './inicio-default.component.css'
 })
 export class InicioDefaultComponent {
-  constructor(private router: Router, protected redireccionamiento:RedireccionService) {}
+  constructor(private router: Router) {}
 
   propiedadesDestacadas = [
     {
@@ -48,5 +47,11 @@ export class InicioDefaultComponent {
     }
   ];
 
+  redirigirALogin() {
+    this.router.navigate(['/login']);
+  }
 
+  redirigirARegistro() {
+    this.router.navigate(['/registro']);
+  }
 }
