@@ -27,23 +27,25 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    console.log('Formulario enviado:', this.loginForm.value);
     if (this.loginForm.valid) {
       this.loading = true;
       this.errorMessage = null;
       const { email, contrasena } = this.loginForm.value;
       this.authService.login(email, contrasena).subscribe({
-        next: () => {
+        next: (response) => {
+          console.log('Respuesta del backend:', response);
           this.loading = false;
-          // Redirigir al inicio después de iniciar sesión
-          this.router.navigate(['/']).then(() => {
-            window.location.reload();
-          });
+          this.router.navigate(['/inicio']); // Navega a la vista protegida de usuario autenticado
         },
         error: (err) => {
+          console.error('Error al iniciar sesión:', err);
           this.loading = false;
           this.errorMessage = err.message || 'Error desconocido';
         }
       });
+    } else {
+      console.warn('Formulario inválido:', this.loginForm);
     }
   }
 }

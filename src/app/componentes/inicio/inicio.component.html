@@ -1,7 +1,18 @@
 <!-- Vista centralizada usando ngSwitch -->
 <div [ngSwitch]="tipoInicio">
+  <!-- Debug information -->
+  <div class="container mt-3 alert alert-info">
+    <h5>Debug Information</h5>
+    <p><strong>tipoInicio:</strong> "{{tipoInicio}}"</p>
+    <p><strong>inicioDeUsuario:</strong> "{{inicioDeUsuario}}"</p>
+    <p><strong>isLogged:</strong> {{isLogged}}</p>
+  </div>
+  
   <!-- Vista para CLIENTE -->
   <ng-container *ngSwitchCase="'CLIENTE'">
+    <div class="alert alert-success m-3">
+      <h4>Mostrando contenido para CLIENTE</h4>
+    </div>
     <!-- Navbar para usuario -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
       <div class="container">
@@ -273,6 +284,9 @@
 
   <!-- Vista para INVITADO (usuarios no logueados) -->
   <ng-container *ngSwitchCase="'INVITADO'">
+    <div class="alert alert-warning m-3">
+      <h4>Mostrando contenido para invitados</h4>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
       <div class="container">
         <a class="navbar-brand" href="#">EDÉN</a>
@@ -317,6 +331,10 @@
 
   <!-- Otros roles (ejemplo: ASESOR) -->
   <ng-container *ngSwitchDefault>
+    <div class="alert alert-secondary m-3">
+      <h4>Mostrando contenido por defecto</h4>
+      <p>No se encontró una coincidencia exacta para "{{tipoInicio}}".</p>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
       <div class="container">
         <a class="navbar-brand" href="#">EDÉN</a>
@@ -363,4 +381,3 @@
     </section>
   </ng-container>
 </div>
-<!-- El resto del contenido (Hero, búsqueda, mapa, propiedades, CTA) se mantiene igual y se puede compartir entre los casos si no hay diferencias. -->
