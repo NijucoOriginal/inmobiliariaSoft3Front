@@ -15,12 +15,14 @@ import {rolesGuard} from './guards/roles.guard';
 
 
 export const routes: Routes = [
-  {
+  /*{
     path: '',
     component: InicioDefaultComponent
   },
+
+   */
   {
-    path: 'inicio',
+    path: '',
     component: InicioComponent,
     canActivate: [authGuard, rolesGuard],
     data: { expectedRoles: ["CLIENTE", "ASESOR"] }

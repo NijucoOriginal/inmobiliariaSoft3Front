@@ -12,17 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarNavCliente">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="#">INICIO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/registroInmueble">VENTA</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/registroInmueble">ALQUILER</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/registroInmueble">PERMUTA</a>
-            </li>
+              <a class="nav-link" routerLink="/registroInmueble">HAGAMOS NEGOCIOS</a>
             <li class="nav-item">
               <a class="nav-link" href="#">ASESORES</a>
             </li>
@@ -174,86 +164,30 @@
     </section>
 
 
-    <!-- Propiedades destacadas -->
     <section class="container mb-5">
       <h2 class="section-title">Propiedades Destacadas</h2>
       <div class="row">
-        <!-- Property 1 -->
-        <div class="col-md-4">
+        <div class="col-md-4" *ngFor="let propiedad of propiedadesDestacadas">
           <div class="property-card card">
             <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Casa moderna">
-              <span class="property-badge">VENTA</span>
+              <img [src]="propiedad.imagen" class="card-img-top" [alt]="propiedad.titulo">
+              <span class="property-badge">{{propiedad.badge}}</span>
             </div>
             <div class="card-body">
-              <h5 class="property-price">$ 590.000.000</h5>
-              <h6 class="card-title">Casa en Chapinero, Bogotá</h6>
-              <p class="card-text">Hermosa casa con amplios espacios, ideal para familia.</p>
+              <h5 class="property-price">{{propiedad.precio}}</h5>
+              <h6 class="card-title">{{propiedad.titulo}}</h6>
+              <p class="card-text">{{propiedad.descripcion}}</p>
               <div class="d-flex justify-content-between">
-                <span><i class="bi bi-house-door"></i> Casa</span>
-                <span><i class="bi bi-geo-alt"></i> 180 m²</span>
+                <span><i class="bi bi-house-door"></i> {{propiedad.tipo}}</span>
+                <span><i class="bi bi-geo-alt"></i> {{propiedad.area}}</span>
               </div>
               <hr>
               <div class="d-flex justify-content-between">
-                <span><i class="bi bi-door-closed"></i> 4 Habitaciones</span>
-                <span><i class="bi bi-droplet"></i> 3 Baños</span>
+                <span><i class="bi bi-door-closed"></i> {{propiedad.habitaciones}} Habitaciones</span>
+                <span><i class="bi bi-droplet"></i> {{propiedad.banos}} Baños</span>
               </div>
               <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-outline-primary">Ver Detalles</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Property 2 -->
-        <div class="col-md-4">
-          <div class="property-card card">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Apartamento">
-              <span class="property-badge">ALQUILER</span>
-            </div>
-            <div class="card-body">
-              <h5 class="property-price">$ 2.500.000/mes</h5>
-              <h6 class="card-title">Apartamento en El Poblado, Medellín</h6>
-              <p class="card-text">Moderno apartamento con vista panorámica y amenities.</p>
-              <div class="d-flex justify-content-between">
-                <span><i class="bi bi-building"></i> Apartamento</span>
-                <span><i class="bi bi-geo-alt"></i> 95 m²</span>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between">
-                <span><i class="bi bi-door-closed"></i> 3 Habitaciones</span>
-                <span><i class="bi bi-droplet"></i> 2 Baños</span>
-              </div>
-              <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-outline-primary">Ver Detalles</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Property 3 -->
-        <div class="col-md-4">
-          <div class="property-card card">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Casa campestre">
-              <span class="property-badge">PERMUTA</span>
-            </div>
-            <div class="card-body">
-              <h5 class="property-price">$ 890.000.000</h5>
-              <h6 class="card-title">Finca en La Calera, Cundinamarca</h6>
-              <p class="card-text">Hermosa finca a 30 minutos de Bogotá, perfecta para descanso.</p>
-              <div class="d-flex justify-content-between">
-                <span><i class="bi bi-tree"></i> Finca</span>
-                <span><i class="bi bi-geo-alt"></i> 5000 m²</span>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between">
-                <span><i class="bi bi-door-closed"></i> 5 Habitaciones</span>
-                <span><i class="bi bi-droplet"></i> 4 Baños</span>
-              </div>
-              <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-outline-primary">Ver Detalles</button>
+                <a class="btn btn-outline-primary w-100" (click)="redireccionamiento.redirigirALogin()">Ver Detalles</a>
               </div>
             </div>
           </div>
