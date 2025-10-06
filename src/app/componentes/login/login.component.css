@@ -107,3 +107,15 @@ body {
   text-decoration: none;
 }
 
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.password-toggle {
+  position: relative;
+}

@@ -19,13 +19,13 @@
         <li class="nav-item">
           <a class="nav-link" (click)="redireccionamiento.redirigirALogin()">CONTÁCTENOS</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-iniciar-sesion" (click)="redireccionamiento.redirigirALogin()">INICIAR SESIÓN</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-registrarse" (click)="redireccionamiento.redirigirARegistro()">REGISTRARSE</a>
-        </li>
       </ul>
+
+      <div class="d-flex">
+        <button class="btn btn-iniciar-sesion"  (click)="redireccionamiento.redirigirALogin()">INICIAR SESIÓN</button>
+        <button class="btn btn-registrarse" (click)="redireccionamiento.redirigirARegistro()">REGISTRARSE</button>
+      </div>
+
     </div>
   </div>
 </nav>

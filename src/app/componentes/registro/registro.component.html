@@ -76,13 +76,13 @@
     <div class="mb-3">
       <label for="password" class="form-label">CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="password" formControlName="contrasena" placeholder="Crea una contraseña segura" required>
+        <input [type]="verContra ? 'text' : 'password'" class="form-control" id="password" formControlName="contrasena" placeholder="Crea una contraseña segura" required>
         <div *ngIf="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched" class="text-danger">
           <div *ngIf="registroForm.get('contrasena')?.errors?.['required']">Debe escribir su contraseña.</div>
           <div *ngIf="registroForm.get('contrasena')?.errors?.['minlength']">La contraseña debe tener mínimo 8 caracteres.</div>
         </div>
-        <span class="password-toggle-icon" id="togglePassword">
-                        <i class="bi bi-eye"></i>
+        <span class="password-toggle-icon" (click)="mostrarContrasenia()">
+                        <i class="bi" [ngClass]="verContra ? 'bi-eye-slash' : 'bi-eye'"></i>
                     </span>
       </div>
     </div>
@@ -90,13 +90,13 @@
     <div class="mb-3">
       <label for="confirmPassword" class="form-label">CONFIRMAR CONTRASEÑA</label>
       <div class="password-toggle">
-        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmcontrasena" placeholder="Repite tu contraseña" required>
+        <input [type]="verConfirmContra ? 'text' : 'password'" class="form-control" id="confirmPassword" formControlName="confirmcontrasena" placeholder="Repite tu contraseña" required>
         <div *ngIf="registroForm.get('confirmcontrasena')?.invalid && registroForm.get('confirmcontrasena')?.touched" class="text-danger">
           <div *ngIf="registroForm.get('confirmcontrasena')?.errors?.['required']">Debe confirmar su contraseña.</div>
           <div *ngIf="registroForm.get('confirmcontrasena')?.errors?.['minlength']">La contraseña debe tener mínimo 8 caracteres.</div>
         </div>
-        <span class="password-toggle-icon" id="toggleConfirmPassword">
-                        <i class="bi bi-eye"></i>
+        <span class="password-toggle-icon" (click)="mostrarConfirmContrasenia()">
+                        <i class="bi" [ngClass]="verConfirmContra ? 'bi-eye-slash' : 'bi-eye'"></i>
                     </span>
       </div>
       <div *ngIf="registroForm.errors?.['passwordsMismatch'] && registroForm.get('confirmcontrasena')?.touched" class="text-danger">
@@ -110,11 +110,11 @@
   <div class="register-footer">
     <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
   </div>
-  
+
   <div [class]="classResult" *ngIf="result">
     {{ result }}
   </div>
-  
+
   <div *ngIf="classResult === 'success' && result.includes('registrado correctamente')" class="alert alert-info mt-3">
     <i class="bi bi-info-circle"></i> Se ha enviado un código de activación a tu correo electrónico. Serás redirigido automáticamente para activar tu cuenta.
   </div>
