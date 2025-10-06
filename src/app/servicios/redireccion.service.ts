@@ -20,4 +20,16 @@ export class RedireccionService {
       this.router.navigate(['/unauthorized']);
     }
   }
+
+  redirigirALogin() {
+    this.router.navigate(['/login']);
+  }
+
+  redirigirARegistro() {
+    this.router.navigate(['/registro']);
+  }
+
+  redirigirARegistroInmueble() {
+    this.router.navigate(['/registroInmueble']);
+  }
 }

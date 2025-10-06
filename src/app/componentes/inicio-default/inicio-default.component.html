@@ -1,38 +1,29 @@
 <!-- Navbar igual a INVITADO -->
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">EDÉN</a>
+    <a class="navbar-brand" >EDÉN</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavInvitado" aria-controls="navbarNavInvitado" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavInvitado">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/">INICIO</a>
+          <a class="nav-link" (click)="redireccionamiento.redirigirALogin()">HAGAMOS NEGOCIOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">VENTA</a>
+          <a class="nav-link"(click)="redireccionamiento.redirigirALogin()">ASESORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">ALQUILER</a>
+          <a class="nav-link" (click)="redireccionamiento.redirigirALogin()">CONÓCENOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">PERMUTA</a>
+          <a class="nav-link" (click)="redireccionamiento.redirigirALogin()">CONTÁCTENOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">ASESORES</a>
+          <a class="nav-link btn btn-iniciar-sesion" (click)="redireccionamiento.redirigirALogin()">INICIAR SESIÓN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">CONÓCENOS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/login">CONTÁCTENOS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-iniciar-sesion" (click)="redirigirALogin()">INICIAR SESIÓN</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-registrarse" (click)="redirigirARegistro()">REGISTRARSE</a>
+          <a class="nav-link btn btn-registrarse" (click)="redireccionamiento.redirigirARegistro()">REGISTRARSE</a>
         </li>
       </ul>
     </div>
@@ -47,7 +38,7 @@
         <div class="col-lg-6">
           <h1 class="display-4 fw-bold mb-4">Bienvenido a EDÉN</h1>
           <p class="lead mb-4">Casas, apartamentos, locales, lotes y fincas para todos tus necesidades.</p>
-          <a class="btn btn-primary btn-lg" (click)="redirigirALogin()">Explorar Propiedades</a>
+          <a class="btn btn-primary btn-lg" (click)="redireccionamiento.redirigirALogin()">Explorar Propiedades</a>
         </div>
       </div>
     </div>
@@ -78,7 +69,7 @@
             <span><i class="bi bi-droplet"></i> {{propiedad.banos}} Baños</span>
           </div>
           <div class="d-grid gap-2 mt-3">
-            <a class="btn btn-outline-primary w-100" (click)="redirigirALogin()">Ver Detalles</a>
+            <a class="btn btn-outline-primary w-100" (click)="redireccionamiento.redirigirALogin()">Ver Detalles</a>
           </div>
         </div>
       </div>
@@ -91,6 +82,6 @@
   <div class="container text-center">
     <h2 class="mb-4">¿Necesitas ayuda para encontrar tu propiedad ideal?</h2>
     <p class="lead mb-4">Nuestros asesores están listos para ayudarte a encontrar la propiedad perfecta para ti.</p>
-    <a class="btn btn-primary btn-lg" routerLink="/login">Contactar un Asesor</a>
+    <a class="btn btn-primary btn-lg" (click)="redireccionamiento.redirigirALogin()">Contactar un Asesor</a>
   </div>
 </section>
