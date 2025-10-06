@@ -1,0 +1,12 @@
+<button class="accessibility-btn" (click)="MostrarMenu()">
+  <img src="public/Iconos/PersonaEnSillaRuedas.jpg" alt="Accesibilidad" />
+</button>
+
+<div class="accessibility-menu" *ngIf="menuVisible">
+  <h3 class="menu-title">Accesibilidad</h3>
+  <button (click)="aumentarTexto()">Aumentar texto</button>
+  <button (click)="disminuirTexto()">Disminuir texto</button>
+  <button (click)="CambiarContraste()">Alto contraste</button>
+  <button (click)="CambiarAModoOscuro()">Modo oscuro</button>
+</div>
+
