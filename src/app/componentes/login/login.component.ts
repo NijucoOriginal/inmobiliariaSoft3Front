@@ -28,25 +28,70 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log('Formulario enviado:', this.loginForm.value);
     if (this.loginForm.valid) {
       this.loading = true;
-      this.errorMessage = null;
       const { email, contrasena } = this.loginForm.value;
+
       this.authService.login(email, contrasena).subscribe({
         next: (response) => {
-          console.log('Respuesta del backend:', response);
           this.loading = false;
-          this.router.navigate(['/inicio']); // Navega a la vista protegida de usuario autenticado
+          // Mensaje de éxito usando showAlert
+          this.showAlert('success', 'Inicio de sesión exitoso');
+          this.router.navigate(['/inicio']); // Navegar a la vista protegida
         },
-        error: (err) => {
-          console.error('Error al iniciar sesión:', err);
+        error: (err: any) => {
           this.loading = false;
-          this.errorMessage = err.message || 'Error desconocido';
+
+          // Tomar el mensaje enviado por el backend
+          const mensajeBackend = err.error?.message;
+
+          // Decidir el mensaje a mostrar según el contenido
+          let mensajeAMostrar = mensajeBackend || 'Error desconocido';
+
+          switch (mensajeBackend) {
+            case 'Usuario no encontrado':
+              mensajeAMostrar = 'El email ingresado no está registrado';
+              break;
+            case 'Contraseña incorrecta':
+              mensajeAMostrar = 'La contraseña es incorrecta';
+              break;
+            case 'Usuario bloqueado':
+              mensajeAMostrar = 'Tu cuenta está bloqueada, contacta al soporte';
+              break;
+            // Puedes agregar más casos según los mensajes que devuelva tu backend
+          }
+
+          // Mostrar el mensaje con showAlert
+          this.showAlert('error', mensajeAMostrar);
         }
       });
     } else {
       console.warn('Formulario inválido:', this.loginForm);
+      this.showAlert('error', 'Por favor completa todos los campos correctamente');
+    }
+  }
+
+
+  showAlert(type: 'success' | 'error', message: string): void {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} mt-3`;
+    alertDiv.textContent = message;
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.padding = '15px';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+
+    if (type === 'success') {
+      alertDiv.style.backgroundColor = '#d4edda';
+      alertDiv.style.color = '#155724';
+      alertDiv.style.borderColor = '#c3e6cb';
+    } else {
+      alertDiv.style.backgroundColor = '#f8d7da';
+      alertDiv.style.color = '#721c24';
+      alertDiv.style.borderColor = '#f5c6cb';
     }
   }
 

@@ -35,40 +35,59 @@ export class AuthService {
   login(email: string, contrasena: string): Observable<TokenResponse> {
     console.log('Enviando credenciales al backend:', { email, contrasena });
     const urlLogin = `${this.url}/login`;
-    // Usar los nombres de campos que espera el backend
-   const request= { email: email, contrasena: contrasena };
+    const request = { email, contrasena };
+
     return this.http.post<TokenResponse>(urlLogin, request).pipe(
       tap(response => {
         console.log('Token recibido del backend:', response);
-        const tokenDecodificado: any=jwtDecode(response.token);
+
+        const tokenDecodificado: any = jwtDecode(response.token);
+
+        // Guardar token y datos del usuario en localStorage
         localStorage.setItem(this.TOKEN_KEY, response.token);
         localStorage.setItem(this.TOKEN_TYPE_KEY, tokenDecodificado.type);
         localStorage.setItem(this.EXPIRE_AT_KEY, tokenDecodificado.exp);
-        localStorage.setItem(this.USER_EMAIL_KEY,tokenDecodificado.sub)
-        localStorage.setItem(this.USER_ID_KEY,tokenDecodificado.id)
-        console.log('Token decodificado:', tokenDecodificado);
-        // Asegurarse de que los roles se almacenen como array
-        const roles = Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol];
-        localStorage.setItem(this.ROLES_KEY, JSON.stringify(roles));
-        localStorage.setItem(this.USER_EMAIL_KEY, email); // Almacenar el email
-        localStorage.setItem(this.USER_NAME_KEY,tokenDecodificado.nombre)
-        localStorage.setItem(this.USER_LASTNAME_KEY,tokenDecodificado.apellido)
-        localStorage.setItem(this.USER_PHONE_KEY,tokenDecodificado.telefono)
-        localStorage.setItem(this.USER_DOCUMENT_KEY,tokenDecodificado.documentoIdentidad)
+        localStorage.setItem(this.USER_EMAIL_KEY, tokenDecodificado.sub);
+        localStorage.setItem(this.USER_ID_KEY, tokenDecodificado.id);
+        localStorage.setItem(this.ROLES_KEY, JSON.stringify(
+          Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol]
+        ));
+        localStorage.setItem(this.USER_NAME_KEY, tokenDecodificado.nombre);
+        localStorage.setItem(this.USER_LASTNAME_KEY, tokenDecodificado.apellido);
+        localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
+        localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
 
-        // Delegar redirección al servicio de redirecciónthis.redireccionService.redirigirSegunRol(tokenDecodificado.rol);
+        // Mostrar mensaje de éxito
+        this.showAlert('success', 'Inicio de sesión exitoso');
       }),
       catchError(error => {
         console.error('Error en la llamada al backend:', error);
-        let errorMsg = 'Error al iniciar sesión';
-        if (error.status === 400 || error.status ===401){
-          const errorResponse: ErrorResponse = error.error;
-          errorMsg = errorResponse.message || 'Credenciales inválidas';
+
+        // Tomar el mensaje enviado por el backend
+        const mensajeBackend = error.error?.message;
+        let errorMsg = mensajeBackend || 'Error al iniciar sesión';
+
+        // Personalizar mensajes según el texto recibido
+        switch (mensajeBackend) {
+          case 'Usuario no encontrado':
+            errorMsg = 'El email ingresado no está registrado';
+            break;
+          case 'Contraseña incorrecta':
+            errorMsg = 'La contraseña es incorrecta';
+            break;
+          case 'Usuario bloqueado':
+            errorMsg = 'Tu cuenta está bloqueada, contacta al soporte';
+            break;
         }
+
+        // Mostrar alerta de error usando showAlert
+        this.showAlert('error', errorMsg);
+
         return throwError(() => new Error(errorMsg));
       })
     );
   }
+
 
 
   /**
@@ -182,4 +201,37 @@ return localStorage.getItem(this.TOKEN_KEY);
       return [];
     }
   }
+
+  showAlert(type: 'success' | 'error', message: string): void {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} mt-3`;
+    alertDiv.textContent = message;
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.padding = '15px';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+
+    if (type === 'success') {
+      alertDiv.style.backgroundColor = '#d4edda';
+      alertDiv.style.color = '#155724';
+      alertDiv.style.borderColor = '#c3e6cb';
+    } else {
+      alertDiv.style.backgroundColor = '#f8d7da';
+      alertDiv.style.color = '#721c24';
+      alertDiv.style.borderColor = '#f5c6cb';
+    }
+
+    document.body.appendChild(alertDiv);
+
+    // Eliminar la alerta después de 3 segundos
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        alertDiv.parentNode.removeChild(alertDiv);
+      }
+    }, 3000);
+  }
+
 }

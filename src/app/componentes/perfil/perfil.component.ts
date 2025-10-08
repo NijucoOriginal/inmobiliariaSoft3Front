@@ -102,23 +102,56 @@ export class PerfilComponent {
   }
 
   desvincularEmpresa() {
-    console.log('Formulario enviado:', this.perfilForm.value);
+    this.loading=true;
     this.userService.desvincular(this.email).subscribe({
-      next: (response) => {
+        next: (response) => {
           console.log('Respuesta del backend:', response);
           this.loading = false;
-          alert('Usuario desvinculado de la empresa exitosamente.');
+          this.showAlert('success', 'Usuario desvinculado exitosamente. Serás redirigido a la página principal.');
           this.redireccionamiento.redirigirAHome();
         },
-      error: (err) => {
+        error: (err) => {
           console.error('Error al desvincular usuario:', err);
           this.loading = false;
           this.errorMessage = err.message || 'Error desconocido';
+          this.showAlert('error', 'Error al desvincular usuario:');
         }
       }
-
     )
   }
+
+  showAlert(type: 'success' | 'error', message: string): void {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} mt-3`;
+    alertDiv.textContent = message;
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.padding = '15px';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+
+    if (type === 'success') {
+      alertDiv.style.backgroundColor = '#d4edda';
+      alertDiv.style.color = '#155724';
+      alertDiv.style.borderColor = '#c3e6cb';
+    } else {
+      alertDiv.style.backgroundColor = '#f8d7da';
+      alertDiv.style.color = '#721c24';
+      alertDiv.style.borderColor = '#f5c6cb';
+    }
+
+    document.body.appendChild(alertDiv);
+
+    // Eliminar la alerta después de 3 segundos
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        alertDiv.parentNode.removeChild(alertDiv);
+      }
+    }, 3000);
+  }
+
 
 
 }
