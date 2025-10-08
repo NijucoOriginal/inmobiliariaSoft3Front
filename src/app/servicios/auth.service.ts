@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+
   //private url = `${environment.backendUrl}/api/auth`;
   private url='http://localhost:8080/api/auth';
   private readonly TOKEN_KEY = 'authToken';
@@ -19,6 +20,11 @@ export class AuthService {
   private readonly EXPIRE_AT_KEY = 'expireAt';
   private readonly ROLES_KEY = 'roles';
   private readonly USER_EMAIL_KEY = 'userEmail';
+  private readonly USER_PHONE_KEY = 'userPhone';
+  private readonly USER_ID_KEY='userId'
+  private readonly USER_NAME_KEY='userName'
+  private readonly USER_LASTNAME_KEY='userLastName'
+  private readonly USER_DOCUMENT_KEY='documento'
   constructor(private http: HttpClient, private redireccionService: RedireccionService) {}
 
   /**
@@ -38,10 +44,17 @@ export class AuthService {
         localStorage.setItem(this.TOKEN_KEY, response.token);
         localStorage.setItem(this.TOKEN_TYPE_KEY, tokenDecodificado.type);
         localStorage.setItem(this.EXPIRE_AT_KEY, tokenDecodificado.exp);
+        localStorage.setItem(this.USER_EMAIL_KEY,tokenDecodificado.sub)
+        localStorage.setItem(this.USER_ID_KEY,tokenDecodificado.id)
+        console.log('Token decodificado:', tokenDecodificado);
         // Asegurarse de que los roles se almacenen como array
         const roles = Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol];
         localStorage.setItem(this.ROLES_KEY, JSON.stringify(roles));
         localStorage.setItem(this.USER_EMAIL_KEY, email); // Almacenar el email
+        localStorage.setItem(this.USER_NAME_KEY,tokenDecodificado.nombre)
+        localStorage.setItem(this.USER_LASTNAME_KEY,tokenDecodificado.apellido)
+        localStorage.setItem(this.USER_PHONE_KEY,tokenDecodificado.telefono)
+        localStorage.setItem(this.USER_DOCUMENT_KEY,tokenDecodificado.documentoIdentidad)
 
         // Delegar redirección al servicio de redirecciónthis.redireccionService.redirigirSegunRol(tokenDecodificado.rol);
       }),
@@ -76,6 +89,7 @@ export class AuthService {
     }
     return true;
 }
+
 
   /**
    *Cierra la sesión
@@ -116,6 +130,31 @@ return localStorage.getItem(this.TOKEN_KEY);
   getUserEmail(): string | null {
     return localStorage.getItem(this.USER_EMAIL_KEY);
   }
+
+  obtenerNombreUsuario(): string | null {
+    console.log(localStorage.getItem(this.USER_NAME_KEY))
+    return localStorage.getItem(this.USER_NAME_KEY)
+  }
+
+  obtenerApellidoUsuario(): string | null {
+    console.log(localStorage.getItem(this.USER_LASTNAME_KEY))
+    return localStorage.getItem(this.USER_LASTNAME_KEY)
+  }
+
+
+  obtenerTelefonoUsuario(): string | null {
+    return localStorage.getItem(this.USER_PHONE_KEY)
+  }
+
+  obtenerIdUsuario(): string | null {
+    return localStorage.getItem(this.USER_ID_KEY)
+  }
+
+  obtenerDocumentoUsuario(): string | null {
+    return localStorage.getItem(this.USER_DOCUMENT_KEY)
+  }
+
+
 
   /**
    * Decodifica el token JWT para extraer información como roles.

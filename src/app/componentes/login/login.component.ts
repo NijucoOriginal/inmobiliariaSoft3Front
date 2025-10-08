@@ -19,7 +19,6 @@ export class LoginComponent {
   errorMessage: string | null = null;
   loading: boolean = false;
   verContra = false;
-  verConfirmContra = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -53,10 +52,6 @@ export class LoginComponent {
 
   mostrarContrasenia() {
     this.verContra = !this.verContra;
-  }
-
-  mostrarConfirmContrasenia() {
-    this.verConfirmContra=!this.verConfirmContra;
   }
 
 }

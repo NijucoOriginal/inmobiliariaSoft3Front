@@ -32,4 +32,12 @@ export class RedireccionService {
   redirigirARegistroInmueble() {
     this.router.navigate(['/registroInmueble']);
   }
+
+  redirigirAPerfil() {
+    this.router.navigate(['/perfil']);
+  }
+
+  redirigirAHome() {
+    this.router.navigate(['/']);
+  }
 }

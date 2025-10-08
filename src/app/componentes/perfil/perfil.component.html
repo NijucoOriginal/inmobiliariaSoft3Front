@@ -1,0 +1,129 @@
+<main class="container" [formGroup]="perfilForm">
+  <section class="perfil">
+    <div class="perfil-header">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        alt="Foto de perfil"
+        class="avatar"
+      >
+
+
+      <div class="perfil-info">
+        <!-- Mostrar nombre y apellido -->
+        <h1 *ngIf="!editando">{{ nombre }} {{ apellido }}</h1>
+
+        <!-- Campos de edición -->
+        <div *ngIf="editando" class="nombre-apellido-editar">
+          <input
+            type="text"
+            [(ngModel)]="nombreTemporal"
+            class="campo-editar"
+            placeholder="Nombre"
+          >
+          <input
+            type="text"
+            [(ngModel)]="apellidoTemporal"
+            class="campo-editar"
+            placeholder="Apellido"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="perfil-detalles">
+      <h2>Información personal</h2>
+
+      <div class="info-grid">
+        <!-- Correo (solo lectura, incluso en edición) -->
+        <div>
+          <strong>Correo:</strong>
+          <p>{{ email }}</p>
+        </div>
+
+        <!-- Teléfono -->
+        <div>
+          <strong>Teléfono:</strong>
+          <p *ngIf="!editando">{{ telefono }}</p>
+          <input
+            *ngIf="editando"
+            type="text"
+            [(ngModel)]="telefonoTemporal"
+            class="campo-editar"
+            placeholder="Teléfono"
+          >
+        </div>
+
+        <!-- Documento de identidad -->
+        <div>
+          <strong>Documento de identidad:</strong>
+          <p *ngIf="!editando">{{ documentoIdentidad }}</p>
+          <input
+            *ngIf="editando"
+            type="text"
+            [(ngModel)]="documentoIdentidadTemporal"
+            class="campo-editar"
+            placeholder="Documento de identidad"
+          >
+        </div>
+
+
+        <!-- Tipo de cuenta -->
+        <div>
+          <strong>Tipo de cuenta:</strong>
+          <p>{{ rol }}</p>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div style="margin-top: 20px;">
+        <!-- Cuando NO está editando -->
+        <button *ngIf="!editando" class="btn-verde" (click)="activarEdicion()">
+          Editar información
+        </button>
+
+        <!-- Cuando SÍ está editando -->
+        <div *ngIf="editando" class="botones-edicion">
+          <button class="btn-verde" (click)="guardarCambios()">
+            <i class="fa-solid fa-check"></i>
+          </button>
+          <button class="btn-rojo" (click)="cancelarEdicion()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <button class="btn-rojo" *ngIf="!editando" (click)="desvincularEmpresa()">
+          Desvincularme de la empresa
+        </button>
+      </div>
+    </div>
+
+    <div class="perfil-propiedades">
+      <h2>Mis propiedades</h2>
+
+      <!-- Si NO hay propiedades -->
+      <div
+        *ngIf="propiedades.length === 0"
+        class="no-propiedades"
+        style="text-align:center; font-size:2rem; color:#999;"
+      >
+        <i class="fa-solid fa-face-frown"></i>
+        <p>No tienes propiedades registradas</p>
+      </div>
+
+      <!-- Si hay propiedades -->
+      <div class="propiedades-grid" *ngIf="propiedades.length > 0">
+        <div class="card" *ngFor="let propiedad of propiedades">
+          <img [src]="propiedad.imagen" [alt]="propiedad.titulo">
+          <div class="card-body">
+            <h3>{{ propiedad.titulo }}</h3>
+            <span class="badge" [ngClass]="propiedad.tipo === 'VENTA' ? 'verde' : 'azul'">
+              {{ propiedad.tipo }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+

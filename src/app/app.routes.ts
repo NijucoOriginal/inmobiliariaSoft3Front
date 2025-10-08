@@ -9,6 +9,7 @@ import {RegistroInmuebleComponent} from './componentes/registro-inmueble/registr
 import {RecuperarContraseniaComponent} from './componentes/recuperar-contrasenia/recuperar-contrasenia.component';
 import {ActivarComponent} from './componentes/activar-cuenta/activar.component';
 import { InicioDefaultComponent } from './componentes/inicio-default/inicio-default.component';
+import {PerfilComponent} from './componentes/perfil/perfil.component';
 
 import {authGuard} from './guards/auth.guard';
 import {rolesGuard} from './guards/roles.guard';
@@ -70,6 +71,10 @@ export const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
   },
   {
     path: '**',
