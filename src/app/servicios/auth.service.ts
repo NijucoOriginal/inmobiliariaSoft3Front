@@ -25,6 +25,7 @@ export class AuthService {
   private readonly USER_NAME_KEY='userName'
   private readonly USER_LASTNAME_KEY='userLastName'
   private readonly USER_DOCUMENT_KEY='documento'
+  private readonly USER_PASSWORD_KEY='userPassword'
   constructor(private http: HttpClient, private redireccionService: RedireccionService) {}
 
   /**
@@ -56,6 +57,7 @@ export class AuthService {
         localStorage.setItem(this.USER_LASTNAME_KEY, tokenDecodificado.apellido);
         localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
         localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
+        localStorage.setItem(this.USER_PASSWORD_KEY,tokenDecodificado.contrasena)
 
         // Mostrar mensaje de éxito
         this.showAlert('success', 'Inicio de sesión exitoso');
@@ -114,11 +116,11 @@ export class AuthService {
    *Cierra la sesión
    */
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.TOKEN_TYPE_KEY);
-    localStorage.removeItem(this.EXPIRE_AT_KEY);
-    localStorage.removeItem(this.ROLES_KEY);
-    localStorage.removeItem(this.USER_EMAIL_KEY);
+    localStorage.clear();
+  }
+
+  limpiarStorage(): void {
+    localStorage.clear();
   }
 
  public getToken(): string | null {
@@ -172,6 +174,29 @@ return localStorage.getItem(this.TOKEN_KEY);
   obtenerDocumentoUsuario(): string | null {
     return localStorage.getItem(this.USER_DOCUMENT_KEY)
   }
+
+  obtenerContrasenaUsuario(): string {
+    return <string>localStorage.getItem(this.USER_PASSWORD_KEY)
+  }
+
+ /* modificarCredencialesToken(token: TokenResponse): void {
+    const tokenDecodificado: any = jwtDecode(token.token);
+    localStorage.setItem(this.TOKEN_KEY, token.token);
+    localStorage.setItem(this.TOKEN_TYPE_KEY, token.type);
+    localStorage.setItem(this.EXPIRE_AT_KEY, token.exp);
+    localStorage.setItem(this.USER_EMAIL_KEY, token.sub);
+    localStorage.setItem(this.USER_ID_KEY, token.id);
+    localStorage.setItem(this.ROLES_KEY, JSON.stringify(
+      Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol]
+    ));
+    localStorage.setItem(this.USER_NAME_KEY, token.nombre);
+    localStorage.setItem(this.USER_LASTNAME_KEY, token.apellido);
+    localStorage.setItem(this.USER_PHONE_KEY, token.telefono);
+    localStorage.setItem(this.USER_DOCUMENT_KEY, token.documentoIdentidad);
+    localStorage.setItem(this.USER_PASSWORD_KEY,token.contrasena)
+  }
+
+  */
 
 
 

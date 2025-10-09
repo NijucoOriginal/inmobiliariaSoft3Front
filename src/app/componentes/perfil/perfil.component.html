@@ -16,15 +16,15 @@
         <div *ngIf="editando" class="nombre-apellido-editar">
           <input
             type="text"
-            [(ngModel)]="nombreTemporal"
             class="campo-editar"
             placeholder="Nombre"
+            formControlName="nombreTemporal"
           >
           <input
             type="text"
-            [(ngModel)]="apellidoTemporal"
             class="campo-editar"
             placeholder="Apellido"
+            formControlName="apellidoTemporal"
           >
         </div>
       </div>
@@ -47,9 +47,9 @@
           <input
             *ngIf="editando"
             type="text"
-            [(ngModel)]="telefonoTemporal"
             class="campo-editar"
             placeholder="Teléfono"
+            formControlName="telefonoTemporal"
           >
         </div>
 
@@ -60,9 +60,9 @@
           <input
             *ngIf="editando"
             type="text"
-            [(ngModel)]="documentoIdentidadTemporal"
             class="campo-editar"
             placeholder="Documento de identidad"
+            formControlName="documentoIdentidadTemporal"
           >
         </div>
 

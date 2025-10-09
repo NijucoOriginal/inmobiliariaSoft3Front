@@ -177,4 +177,24 @@ body {
   }
 }
 
+/* Campos en modo edición */
+.campo-editar {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 2px solid #00A36C;
+  background-color: #eafff3; /* verde muy suave */
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al hacer foco */
+.campo-editar:focus {
+  background-color: #d5ffe7; /* un poco más fuerte al hacer clic */
+  border-color: #008f5e;
+  box-shadow: 0 0 6px rgba(0, 163, 108, 0.4);
+}
+
+
 

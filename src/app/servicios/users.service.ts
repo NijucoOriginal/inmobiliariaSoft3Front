@@ -6,6 +6,7 @@ import {UserRegistrationRequest} from '../dto/user-registration-request';
 import {DesvincularRequestDto} from '../dto/desvincular-request-dto';
 import {User} from '../modelo/User';
 import {AuthService} from './auth.service';
+import {TokenResponse} from '../dto/token-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,6 @@ export class UsersService {
     return this.http.post<UserResponse>(`${this.url}`, user);
   }
 
-  /*
   public desvincular(email: string): Observable<string> {
   const token = this.authservice.getToken();
   if (!token) {
@@ -33,12 +33,34 @@ export class UsersService {
   });
 }
 
+  public actualizarDatosUsuario(email: string, nombre: string, apellido: string, telefono: string, documentoIdentidad: string): Observable<string> {
 
-   */
+    const token = this.authservice.getToken();
+    if (!token) {
+      throw new Error('El usuario no se encuentra logueado en estos momentos');
+    }
 
-  public desvincular(email: string): Observable<string> {
-    return this.http.put(`${this.url}/desvincular/${email}`, {}, { responseType: 'text' });
+    const usuarioActualizado: UserRegistrationRequest = {
+      nombre: nombre,
+      apellido: apellido,
+      documentoIdentidad: documentoIdentidad,
+      telefono: telefono,
+      email: email,
+      contrasena: this.authservice.obtenerContrasenaUsuario()
+    };
+
+    // 🟢 Hacemos el PUT y esperamos un texto plano como respuesta
+    return this.http.put(`${this.url}/actualizar/${email}`, usuarioActualizado, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      responseType: 'text'
+    });
   }
+
+
+
 
 
 }

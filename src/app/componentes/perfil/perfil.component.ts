@@ -48,10 +48,10 @@ export class PerfilComponent {
     this.documentoIdentidad = this.authService.obtenerDocumentoUsuario() || '12345678';
 
     this.perfilForm = this.fb.group({
-      nombre: ['',[Validators.required]],
-      apellido: ['',[Validators.required]],
-      telefono: ['',[Validators.required]],
-      documentoIdentidad: ['',[Validators.required]]
+      nombreTemporal: ['',[Validators.required]],
+      apellidoTemporal: ['',[Validators.required]],
+      telefonoTemporal: ['',[Validators.required]],
+      documentoIdentidadTemporal: ['',[Validators.required]]
     })
   }
 
@@ -80,20 +80,43 @@ export class PerfilComponent {
   }
 
   guardarCambios() {
-    this.nombre = this.nombreTemporal;
-    this.apellido = this.apellidoTemporal;
-    this.email = this.emailTemporal;
-    this.telefono = this.telefonoTemporal;
-    this.documentoIdentidad = this.documentoIdentidadTemporal;
-    this.editando = false;
+    if (this.perfilForm.valid)
+    {
+        const { nombreTemporal, apellidoTemporal, telefonoTemporal, documentoIdentidadTemporal } = this.perfilForm.value;
+        this.nombre = nombreTemporal;
+        this.apellido = apellidoTemporal;
+        this.telefono = telefonoTemporal;
+        this.documentoIdentidad = documentoIdentidadTemporal;
+        this.editando = false;
 
-    console.log('Información actualizada:', {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      correo: this.email,
-      telefono: this.telefono,
-      documento: this.documentoIdentidad
-    });
+        this.userService.actualizarDatosUsuario(this.email, this.nombre, this.apellido, this.telefono, this.documentoIdentidad).subscribe({
+          next: (response) => {
+            console.log('Respuesta del backend:', response);
+            this.showAlert('success', 'Información actualizada exitosamente.');
+            this.redireccionamiento.redirigirAHome();
+            this.authService.limpiarStorage();
+          },
+          error: (err) => {
+            console.error('Error al actualizar datos del usuario:', err);
+            this.errorMessage = err.message || 'Error desconocido';
+            this.showAlert('error', 'Error al actualizar datos del usuario: ' + this.errorMessage);
+          }
+        });
+
+
+      console.log('Información actualizada:', {
+        nombre: this.nombre,
+        apellido: this.apellido,
+        correo: this.email,
+        telefono: this.telefono,
+        documento: this.documentoIdentidad
+      });
+    }
+    else
+    {
+        this.showAlert('error',"Ingrese todos los campos correctamente");
+    }
+
   }
 
   cancelarEdicion() {
@@ -109,6 +132,7 @@ export class PerfilComponent {
           this.loading = false;
           this.showAlert('success', 'Usuario desvinculado exitosamente. Serás redirigido a la página principal.');
           this.redireccionamiento.redirigirAHome();
+          this.authService.limpiarStorage();
         },
         error: (err) => {
           console.error('Error al desvincular usuario:', err);
