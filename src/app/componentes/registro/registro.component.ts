@@ -102,8 +102,9 @@ export class RegistroComponent {
     this.verConfirmContra=!this.verConfirmContra;
   }
 
-  redirigirApoliticaDeDatosConLocalStorage() {
-    localStorage.setItem('migaPan',);
+  redirigirPoliticaDatosConLocalStorage() {
+    localStorage.setItem('migaPan','registro');
+    this.redireccionamiento.redirigirAPoliticaDatos();
   }
 
 

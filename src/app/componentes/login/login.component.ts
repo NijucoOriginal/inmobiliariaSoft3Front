@@ -21,7 +21,7 @@ export class LoginComponent {
   loading: boolean = false;
   verContra = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, protected redireccionamiento: RedireccionService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, protected redireccionamiento: RedireccionService,private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required],
@@ -38,7 +38,7 @@ export class LoginComponent {
           this.loading = false;
           // Mensaje de éxito usando showAlert
           this.showAlert('success', 'Inicio de sesión exitoso');
-          this.redireccionamiento.redirigirALogin() // Navegar a la vista protegida
+          this.router.navigate(['/inicio']);// Navegar a la vista protegida
         },
         error: (err: any) => {
           this.loading = false;

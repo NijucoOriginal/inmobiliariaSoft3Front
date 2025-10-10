@@ -14,13 +14,21 @@ export class PoliticaTratamientoDatosComponent {
   }
 
   redirigirAlInicioMetodo() {
-    if (this.authservice.getToken()!=null)
+    if(localStorage.getItem('migaPan')=='registro')
     {
-      this.redireccionamiento.redirigirAHomeIngresado();
+      this.redireccionamiento.redirigirARegistro();
+      localStorage.removeItem('migaPan')
     }
     else
     {
-      this.redireccionamiento.redirigirAHome();
+      if (this.authservice.getToken()!=null)
+      {
+        this.redireccionamiento.redirigirAHomeIngresado();
+      }
+      else
+      {
+        this.redireccionamiento.redirigirAHome();
+      }
     }
   }
 }

@@ -28,6 +28,7 @@ export class PerfilComponent {
   rol = 'USUARIO';
   id = '1';
   editando = false;
+  mostrarConfirmacion: boolean = false;
 
   nombreTemporal = '';
   emailTemporal = '';
@@ -133,7 +134,16 @@ export class PerfilComponent {
   }
 
   desvincularEmpresa() {
+    this.mostrarConfirmacion=true;
+  }
+
+  cancelarDesvinculacion() {
+    this.mostrarConfirmacion = false;
+  }
+
+  confirmarDesvinculacion() {
     this.loading=true;
+    this.mostrarConfirmacion=false;
     this.userService.desvincular(this.email).subscribe({
         next: (response) => {
           console.log('Respuesta del backend:', response);
