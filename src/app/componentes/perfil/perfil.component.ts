@@ -52,7 +52,15 @@ export class PerfilComponent {
       apellidoTemporal: ['',[Validators.required]],
       telefonoTemporal: ['',[Validators.required]],
       documentoIdentidadTemporal: ['',[Validators.required]]
+
     })
+
+    this.perfilForm.setValue({
+      nombreTemporal: this.nombre,
+      apellidoTemporal: this.apellido,
+      telefonoTemporal: this.telefono,
+      documentoIdentidadTemporal: this.documentoIdentidad
+    });
   }
 
   propiedades = [
@@ -176,6 +184,10 @@ export class PerfilComponent {
     }, 3000);
   }
 
+  volver() {
+    this.redireccionamiento.redirigirAHomeIngresado();
+    console.log('El usuario se encuentra registrado en este momento con las siguientes credenciales de autenticacion '+this.authService.getUserEmail())
+  }
 
 
 }

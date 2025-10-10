@@ -1,3 +1,8 @@
+<button class="btn-volver" (click)="volver()">
+  <i class="fa-solid fa-arrow-left"></i> Volver al Login
+</button>
+
+
 <main class="container" [formGroup]="perfilForm">
   <section class="perfil">
     <div class="perfil-header">
@@ -19,6 +24,7 @@
             class="campo-editar"
             placeholder="Nombre"
             formControlName="nombreTemporal"
+
           >
           <input
             type="text"

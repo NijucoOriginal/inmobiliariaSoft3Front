@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,4 +40,16 @@ export class RedireccionService {
   redirigirAHome() {
     this.router.navigate(['/']);
   }
+
+  redirigirAHomeIngresado() {
+    if(localStorage.getItem('token'))
+    {
+      this.router.navigate(['/inicio']);
+    }
+    else
+    {
+      this.router.navigate(['/']);
+    }
+  }
+
 }
