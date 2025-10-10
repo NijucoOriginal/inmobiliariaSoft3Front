@@ -42,14 +42,11 @@ export class RedireccionService {
   }
 
   redirigirAHomeIngresado() {
-    if(localStorage.getItem('token'))
-    {
-      this.router.navigate(['/inicio']);
-    }
-    else
-    {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['/inicio']);
+  }
+
+  redirigirAPoliticaDatos() {
+    this.router.navigate(['/politicaDatos']);
   }
 
 }

@@ -185,8 +185,15 @@ export class PerfilComponent {
   }
 
   volver() {
-    this.redireccionamiento.redirigirAHomeIngresado();
-    console.log('El usuario se encuentra registrado en este momento con las siguientes credenciales de autenticacion '+this.authService.getUserEmail())
+    if(this.authService.getToken()==null)
+    {
+      this.redireccionamiento.redirigirAHome()
+    }
+    else
+    {
+      this.redireccionamiento.redirigirAHomeIngresado();
+      console.log("Redirigiendo a home ingresado"+this.authService.getUserEmail() );
+    }
   }
 
 

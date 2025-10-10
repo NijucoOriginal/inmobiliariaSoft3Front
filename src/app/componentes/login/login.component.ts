@@ -7,6 +7,7 @@ import { MessageModule } from 'primeng/message';
 import {AuthService} from '../../servicios/auth.service';
 import {NgClass, NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
+import {RedireccionService} from '../../servicios/redireccion.service';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,10 @@ export class LoginComponent {
   loading: boolean = false;
   verContra = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, protected redireccionamiento: RedireccionService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required]
+      contrasena: ['', Validators.required],
     });
   }
 
@@ -37,7 +38,7 @@ export class LoginComponent {
           this.loading = false;
           // Mensaje de éxito usando showAlert
           this.showAlert('success', 'Inicio de sesión exitoso');
-          this.router.navigate(['/inicio']); // Navegar a la vista protegida
+          this.redireccionamiento.redirigirALogin() // Navegar a la vista protegida
         },
         error: (err: any) => {
           this.loading = false;

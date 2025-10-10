@@ -323,3 +323,13 @@ body.dark-mode .map-search-container {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
+.link-clickable {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.link-clickable:hover {
+  color: #00A36C; /* verde corporativo */
+  text-decoration: underline;
+}
+

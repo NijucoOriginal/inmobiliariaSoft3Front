@@ -129,3 +129,19 @@ body {
   margin-bottom: 20px;
 }
 
+.politica-link {
+  color: #10bb82; /* Verde principal */
+  font-weight: 500;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.politica-link:hover {
+  color: #0c8f65;
+  background-color: rgba(16, 187, 130, 0.15);
+  cursor: pointer;
+  text-decoration: none;
+}
+

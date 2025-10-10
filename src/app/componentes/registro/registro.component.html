@@ -104,11 +104,30 @@
       </div>
     </div>
 
+    <!-- ✅ Checkbox con enlace verde -->
+    <div class="form-check mb-3 d-flex align-items-center">
+      <input
+        class="form-check-input me-2"
+        type="checkbox"
+        id="politicaCheck"
+        formControlName="aceptaPolitica"
+      >
+      <label class="form-check-label" for="politicaCheck">
+        ¿Está de acuerdo con nuestra
+        <a
+          (click)="redireccionamiento.redirigirAPoliticaDatos()"
+          class="politica-link"
+        >
+          Política de Tratamiento de Datos
+        </a>?
+      </label>
+    </div>
+
     <button type="submit" [disabled]="registroForm.invalid" class="btn btn-primary">CREAR CUENTA</button>
   </form>
 
   <div class="register-footer">
-    <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+    <p>¿Ya tienes una cuenta? <a (click)="redireccionamiento.redirigirALogin()">Inicia sesión aquí</a></p>
   </div>
 
   <div [class]="classResult" *ngIf="result">

@@ -5,6 +5,7 @@ import { UserRegistrationRequest } from '../../dto/user-registration-request';
 import { UsersService } from '../../servicios/users.service';
 import { ErrorResponse } from '../../dto/error-response';
 import { Router, RouterLink } from '@angular/router';
+import {RedireccionService} from '../../servicios/redireccion.service';
 
 @Component({
   selector: 'app-registro',
@@ -22,7 +23,8 @@ export class RegistroComponent {
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    protected redireccionamiento: RedireccionService
   ) {
     this.crearFormulario();
   }
@@ -35,7 +37,8 @@ export class RegistroComponent {
         telefono: ['', [Validators.required, Validators.maxLength(20)]],
         email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
         contrasena: ['', [Validators.required, Validators.minLength(8)]],
-        confirmcontrasena: ['', [Validators.required, Validators.minLength(8)]]
+        confirmcontrasena: ['', [Validators.required, Validators.minLength(8)]],
+        aceptaPolitica: [false, Validators.requiredTrue]
       },
       {
         validators: this.passwordMatchValidator
@@ -98,5 +101,10 @@ export class RegistroComponent {
   mostrarConfirmContrasenia() {
     this.verConfirmContra=!this.verConfirmContra;
   }
+
+  redirigirApoliticaDeDatosConLocalStorage() {
+    localStorage.setItem('migaPan',);
+  }
+
 
 }
