@@ -7,6 +7,7 @@ import { MessageModule } from 'primeng/message';
 import {AuthService} from '../../servicios/auth.service';
 import { NgIf } from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
+import {RedireccionService} from '../../servicios/redireccion.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
   loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, protected redireccionamiento: RedireccionService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required]
