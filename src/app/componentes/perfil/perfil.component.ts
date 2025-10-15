@@ -102,8 +102,8 @@ export class PerfilComponent {
           next: (response) => {
             console.log('Respuesta del backend:', response);
             this.showAlert('success', 'Información actualizada exitosamente.');
-            this.redireccionamiento.redirigirAHome();
-            this.authService.limpiarStorage();
+            this.authService.cambiarDatosToken(response);
+            window.location.reload();
           },
           error: (err) => {
             console.error('Error al actualizar datos del usuario:', err);

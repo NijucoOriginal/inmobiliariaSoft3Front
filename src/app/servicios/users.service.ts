@@ -33,7 +33,7 @@ export class UsersService {
   });
 }
 
-  public actualizarDatosUsuario(email: string, nombre: string, apellido: string, telefono: string, documentoIdentidad: string): Observable<string> {
+  public actualizarDatosUsuario(email: string, nombre: string, apellido: string, telefono: string, documentoIdentidad: string): Observable<TokenResponse> {
 
     const token = this.authservice.getToken();
     if (!token) {
@@ -50,12 +50,11 @@ export class UsersService {
     };
 
     // 🟢 Hacemos el PUT y esperamos un texto plano como respuesta
-    return this.http.put(`${this.url}/actualizar/${email}`, usuarioActualizado, {
+    return this.http.put<TokenResponse>(`${this.url}/actualizar/${email}`, usuarioActualizado, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
-      },
-      responseType: 'text'
+      }
     });
   }
 

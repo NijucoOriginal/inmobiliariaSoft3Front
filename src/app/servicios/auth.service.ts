@@ -41,23 +41,8 @@ export class AuthService {
     return this.http.post<TokenResponse>(urlLogin, request).pipe(
       tap(response => {
         console.log('Token recibido del backend:', response);
+        this.cambiarDatosToken(response);
 
-        const tokenDecodificado: any = jwtDecode(response.token);
-
-        // Guardar token y datos del usuario en localStorage
-        localStorage.setItem(this.TOKEN_KEY, response.token);
-        localStorage.setItem(this.TOKEN_TYPE_KEY, tokenDecodificado.type);
-        localStorage.setItem(this.EXPIRE_AT_KEY, tokenDecodificado.exp);
-        localStorage.setItem(this.USER_EMAIL_KEY, tokenDecodificado.sub);
-        localStorage.setItem(this.USER_ID_KEY, tokenDecodificado.id);
-        localStorage.setItem(this.ROLES_KEY, JSON.stringify(
-          Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol]
-        ));
-        localStorage.setItem(this.USER_NAME_KEY, tokenDecodificado.nombre);
-        localStorage.setItem(this.USER_LASTNAME_KEY, tokenDecodificado.apellido);
-        localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
-        localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
-        localStorage.setItem(this.USER_PASSWORD_KEY,tokenDecodificado.contrasena)
 
         // Mostrar mensaje de éxito
         this.showAlert('success', 'Inicio de sesión exitoso');
@@ -121,6 +106,24 @@ export class AuthService {
 
   limpiarStorage(): void {
     localStorage.clear();
+  }
+
+  cambiarDatosToken(response: TokenResponse): void {
+    const tokenDecodificado: any = jwtDecode(response.token);
+
+    localStorage.setItem(this.TOKEN_KEY, response.token);
+    localStorage.setItem(this.TOKEN_TYPE_KEY, tokenDecodificado.type);
+    localStorage.setItem(this.EXPIRE_AT_KEY, tokenDecodificado.exp);
+    localStorage.setItem(this.USER_EMAIL_KEY, tokenDecodificado.sub);
+    localStorage.setItem(this.USER_ID_KEY, tokenDecodificado.id);
+    localStorage.setItem(this.ROLES_KEY, JSON.stringify(
+      Array.isArray(tokenDecodificado.rol) ? tokenDecodificado.rol : [tokenDecodificado.rol]
+    ));
+    localStorage.setItem(this.USER_NAME_KEY, tokenDecodificado.nombre);
+    localStorage.setItem(this.USER_LASTNAME_KEY, tokenDecodificado.apellido);
+    localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
+    localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
+    localStorage.setItem(this.USER_PASSWORD_KEY,tokenDecodificado.contrasena)
   }
 
  public getToken(): string | null {
