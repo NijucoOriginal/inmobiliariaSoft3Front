@@ -103,6 +103,7 @@ export class PerfilComponent {
             console.log('Respuesta del backend:', response);
             this.showAlert('success', 'Información actualizada exitosamente.');
             this.authService.cambiarDatosToken(response);
+            console.log("el token cambio "+this.authService.obtenerNombreUsuario());
             window.location.reload();
           },
           error: (err) => {
