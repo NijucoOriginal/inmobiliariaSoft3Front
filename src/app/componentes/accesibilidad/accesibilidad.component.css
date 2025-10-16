@@ -139,11 +139,6 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* === MODOS DE COLOR === */
-.dark-mode {
-  background-color: #1a1a1a;
-  color: #f5f5f5;
-}
 
 .high-contrast {
   background-color: black !important;
