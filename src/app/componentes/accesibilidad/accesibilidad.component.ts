@@ -16,41 +16,29 @@ export class AccesibilidadComponent {
   modoOscuro = false;
   altoContraste = false;
 
-  constructor() {
-  }
+  constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {}
 
   CambiarContraste() {
-
+    if (this.altoContraste) {
+      this.renderer.addClass(this.document.body, 'high-contrast');
+    } else {
+      this.renderer.removeClass(this.document.body, 'high-contrast');
+    }
   }
 
   CambiarModoOscuro() {
-
+    if (this.modoOscuro) {
+      this.renderer.addClass(this.document.body, 'dark-mode');
+    } else {
+      this.renderer.removeClass(this.document.body, 'dark-mode');
+    }
   }
 
   MostrarMenu() {
     this.menuVisible = !this.menuVisible;
   }
 
-  aumentarTexto() {
-    this.zoom += 0.1;
-    document.body.style.zoom = String(this.zoom);
+  actualizarZoom() {
+    this.renderer.setStyle(this.document.body, 'zoom', String(this.zoom));
   }
-
-  disminuirTexto() {
-    if (this.zoom > 0.8) {
-      this.zoom -= 0.1;
-      document.body.style.zoom = String(this.zoom);
-    }
-  }
-
-  onSliderChange(event: Event) {
-    const nuevoZoom = parseFloat((event.target as HTMLInputElement).value);
-
-    if (nuevoZoom > this.zoom) {
-      this.aumentarTexto();
-    } else if (nuevoZoom < this.zoom) {
-      this.disminuirTexto();
-    }
-  }
-
 }

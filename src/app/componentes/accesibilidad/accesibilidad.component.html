@@ -12,13 +12,11 @@
   <!-- Control de tamaño de texto -->
   <div class="text-size-control">
     <label for="textSize">Tamaño de texto</label>
-
     <div class="slider-labels">
       <span>Pequeño</span>
       <span>{{ (zoom * 100) | number: '1.0-0' }}%</span>
       <span>Grande</span>
     </div>
-
     <input
       id="textSize"
       type="range"
@@ -26,10 +24,9 @@
       max="1.5"
       step="0.1"
       [(ngModel)]="zoom"
-      (input)="onSliderChange($event)"
+      (input)="actualizarZoom()"
     />
   </div>
-
 
   <!-- Switch de alto contraste -->
   <div class="switch-container">
