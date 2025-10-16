@@ -27,14 +27,12 @@ export class AccesibilidadComponent {
   }
 
   CambiarModoOscuro() {
-    const body = this.document.body;
     if (this.modoOscuro) {
-      this.renderer.setAttribute(body, 'data-bs-theme', 'dark');
+      this.renderer.addClass(this.document.body, 'dark-mode');
     } else {
-      this.renderer.setAttribute(body, 'data-bs-theme', 'light');
+      this.renderer.removeClass(this.document.body, 'dark-mode');
     }
   }
-
 
   MostrarMenu() {
     this.menuVisible = !this.menuVisible;
