@@ -4,34 +4,127 @@ import {FormBuilder, FormGroup, isFormGroup, ReactiveFormsModule, Validators} fr
 import {UsersService} from '../../servicios/users.service';
 import {RegistroInmuebleRequest} from '../../dto/registro-inmueble-request';
 import {RouterLink} from '@angular/router';
+import {RedireccionService} from '../../servicios/redireccion.service';
+import {CommonModule} from '@angular/common';
+import {CaptacionInmuebleDTO} from '../../dto/captacion-inmueble-dto';
+import {InmuebleServiceService} from '../../servicios/inmueble-service.service';
 
 @Component({
   selector: 'app-registro-inmueble',
+  standalone:true,
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './registro-inmueble.component.html',
   styleUrl: './registro-inmueble.component.css'
 })
 export class RegistroInmuebleComponent implements OnInit{
   registroInmuebleForm!: FormGroup;
+  imagenes: File[] = [];
+  imagenesPreview: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private mapaService: MapaService) {
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    this.procesarArchivos(input.files);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer?.files) {
+      console.log('archivos soltados:', event.dataTransfer.files);
+      this.procesarArchivos(event.dataTransfer.files);
+    }
+  }
+
+  procesarArchivos(files: FileList): void {
+    const nuevosArchivos = Array.from(files);
+    for (let file of nuevosArchivos) {
+      if (this.imagenes.length >= 10) break;
+      if (file.type === 'image/jpeg' || file.type === 'image/png') {
+        this.imagenes.push(file);
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          console.log('Imagen cargada:', e.target.result);
+          console.log('Previsualización actual:', this.imagenesPreview);
+          this.imagenesPreview.push(e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
+  eliminarImagen(index: number): void {
+    this.imagenes.splice(index, 1);
+    this.imagenesPreview.splice(index, 1);
+  }
+
+  pdfArchivos: File[] = [];
+
+  onPDFSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    this.procesarPDFs(input.files);
+  }
+
+  onDragOverPDF(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDropPDF(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer?.files) {
+      this.procesarPDFs(event.dataTransfer.files);
+    }
+  }
+
+  procesarPDFs(files: FileList): void {
+    const nuevosArchivos = Array.from(files);
+    for (let file of nuevosArchivos) {
+      if (this.pdfArchivos.length >= 5) break;
+      if (file.type === 'application/pdf') {
+        this.pdfArchivos.push(file);
+      }
+    }
+  }
+
+  eliminarPDF(index: number): void {
+    this.pdfArchivos.splice(index, 1);
+  }
+
+
+  constructor(private formBuilder: FormBuilder, private mapaService: MapaService,protected redireccionamiento: RedireccionService,private inmuebleService: InmuebleServiceService) {
     this.crearFormularioTexto();
   }
 
 
-  //Revisar si funciona
   ngOnInit(): void {
     this.mapaService.crearMapa();
 
-
     this.mapaService['mapa'].on('click', (event: any) => {
       const { lng, lat } = event.lngLat;
+
+      // Agrega el marcador donde se hace clic
       this.mapaService.agregarMarcador();
 
-      this.registroInmuebleForm.get('ubicacion')?.setValue({ latitud: lat, longitud: lng });
+      // Guarda los valores en campos separados
+      this.registroInmuebleForm.get('latitud')?.setValue(lat);
+      console.log('latitud', lat);
+      console.log('longitud', lng);
+      this.registroInmuebleForm.get('longitud')?.setValue(lng);
     });
   }
 
@@ -39,31 +132,100 @@ export class RegistroInmuebleComponent implements OnInit{
   private crearFormularioTexto() {
     this.registroInmuebleForm = this.formBuilder.group({
       tipoNegocio: ['', [Validators.required]],
-      tipoInmueble: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
       precio: ['', [Validators.required]],
-      estrato: ['', [Validators.required]],
-      estadoinmueble: ['', [Validators.required]],
+      estado: ['', [Validators.required]],
       habitaciones: ['', [Validators.required]],
       banos: ['', [Validators.required]],
       parqueaderos: ['', [Validators.required]],
       medidas: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
-      nombre: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      terminosycondiciones: [false, [Validators.requiredTrue]],
-      recibirPromociones: [false, [Validators.requiredTrue]],
-      password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-      ubicacion: this.formBuilder.group({
-        latitud: [''],
-        longitud: ['']
-      })
+      nombreContacto: ['', [Validators.required]],
+      telefonoContacto: ['', [Validators.required]],
+      correoContacto: ['', [Validators.required, Validators.email]],
+      latitud: ['', [Validators.required]],
+      longitud: ['', [Validators.required]],
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    if (this.registroInmuebleForm.valid) {
+      // 1. Obtener los datos del formulario
+      const datosFormulario = this.registroInmuebleForm.value;
 
+      // 2. Crear el DTO sin archivos
+      const dto: CaptacionInmuebleDTO = {
+        latitud: datosFormulario.latitud,
+        longitud: datosFormulario.longitud,
+        tipoNegocio: datosFormulario.tipoNegocio,
+        tipo: datosFormulario.tipoInmueble,
+        medidas: datosFormulario.medidas,
+        habitaciones: datosFormulario.habitaciones,
+        banos: datosFormulario.banos,
+        descripcion: datosFormulario.descripcion,
+        precio: datosFormulario.precio,
+        cantidadParqueaderos: datosFormulario.parqueaderos,
+        telefonoContacto: datosFormulario.telfonoContacto,
+        nombreContacto: datosFormulario.nombreContacto,
+        correoContacto: datosFormulario.correoContacto,
+        estado: datosFormulario.estadoInmueble
+      };
+
+      // 3. Crear FormData para archivos
+      const formData = new FormData();
+
+      // Agregar el DTO como JSON
+      formData.append('inmuebleDto', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+      formData.append('correoUsuario', localStorage.getItem('userEmail') || '');
+
+      this.imagenes.forEach((img) => {
+        formData.append('imagenes', img); // mismo nombre para todos
+      });
+
+      this.pdfArchivos.forEach((pdf) => {
+        formData.append('documentosImportantes', pdf); // mismo nombre para todos
+      });
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      // 4. Enviar DTO y archivos
+      this.inmuebleService.registrarInmueble(formData).subscribe({
+        next: () => {
+          console.log('Captación registrada correctamente');
+          this.showAlert('success', 'Inmueble registrado exitosamente');
+          this.redireccionamiento.redirigirAPerfil();
+        },
+        error: (err) => {
+          console.error('Error al registrar captación:', err);
+          this.showAlert('error', 'Error al resgistrar el inmueble');
+        }
+      });
+    }
+  }
+
+  showAlert(type: 'success' | 'error', message: string): void {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} mt-3`;
+    alertDiv.textContent = message;
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.padding = '15px';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+
+    if (type === 'success') {
+      alertDiv.style.backgroundColor = '#d4edda';
+      alertDiv.style.color = '#155724';
+      alertDiv.style.borderColor = '#c3e6cb';
+    } else {
+      alertDiv.style.backgroundColor = '#f8d7da';
+      alertDiv.style.color = '#721c24';
+      alertDiv.style.borderColor = '#f5c6cb';
+    }
   }
 
 }

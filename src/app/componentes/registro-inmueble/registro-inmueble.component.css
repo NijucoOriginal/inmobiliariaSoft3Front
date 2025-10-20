@@ -240,3 +240,47 @@ textarea {
 .back-button {
   margin-bottom: 20px;
 }
+
+#imagePreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+#imagePreview .card {
+  width: 100%;
+  max-width: 180px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+#imagePreview img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.pdf-upload {
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #fefefe;
+}
+
+.pdf-upload:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.upload-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}

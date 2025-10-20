@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrar Inmueble - EDÉN Inmobiliaria</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-</head>
-<body>
 <div class="property-form-container">
   <div class="back-button">
-    <button type="button" class="btn btn-outline-secondary">
+    <button type="button" class="btn btn-outline-secondary" routerLink="/inicio">
       <i class="bi bi-arrow-left"></i> Volver al Inicio
     </button>
   </div>
@@ -29,15 +18,15 @@
   </div>
 
   <form [formGroup]="registroInmuebleForm" (ngSubmit)="onSubmit()">
-    <!-- Sección 1: Información básica -->
+
+    <!-- Información básica -->
     <div class="form-section">
       <h3 class="section-title">Información básica</h3>
-
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Tipo de negocio</label>
-          <select class="form-select"  formControlName="tipoNegocio" required>
-            <option value="" selected disabled>Seleccionar</option>
+          <select class="form-select" formControlName="tipoNegocio" required>
+            <option value="" disabled selected>Seleccionar</option>
             <option value="venta">Venta</option>
             <option value="alquiler">Alquiler</option>
             <option value="permuta">Permuta</option>
@@ -46,8 +35,8 @@
 
         <div class="col-md-6 mb-3">
           <label class="form-label">Tipo de inmueble</label>
-          <select class="form-select" formControlName="tipoInmueble" required>
-            <option value="" selected disabled>Seleccionar</option>
+          <select class="form-select" formControlName="tipo" required>
+            <option value="" disabled selected>Seleccionar</option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
             <option value="local">Local Comercial</option>
@@ -59,169 +48,152 @@
       </div>
     </div>
 
-    <!-- Sección 2: Valor y estado -->
+    <!-- Valor y estado -->
     <div class="form-section">
       <h3 class="section-title">Valor y estado</h3>
-
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Precio</label>
           <div class="input-group">
             <span class="input-group-text">$</span>
-            <input type="number" formControlName="precio" class="form-control" placeholder="Ej: 250000000" required>
+            <input type="number" class="form-control" formControlName="precio" placeholder="Ej: 250000000">
           </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Estrato</label>
-          <select class="form-select" formControlName="estrato" required>
-            <option value="" selected disabled>Seleccionar</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Estado del inmueble</label>
-        <select class="form-select" formControlName="estadoinmueble" required>
-          <option value="" selected disabled>Seleccionar</option>
+        <select class="form-select" formControlName="estado">
+          <option value="" disabled selected>Seleccionar</option>
           <option value="nuevo">Nuevo</option>
           <option value="usado">Usado</option>
         </select>
       </div>
     </div>
 
-    <!-- Sección 3: Espacios y descripción -->
+    <!-- Espacios -->
     <div class="form-section">
       <h3 class="section-title">Espacios</h3>
-
       <div class="row">
         <div class="col-md-4 mb-3">
           <label class="form-label">Nº Habitaciones</label>
           <select class="form-select" formControlName="habitaciones">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5+</option>
+            <option *ngFor="let h of [0,1,2,3,4,5]" [value]="h">{{ h === 5 ? '5+' : h }}</option>
           </select>
         </div>
 
         <div class="col-md-4 mb-3">
           <label class="form-label">Nº Baños</label>
           <select class="form-select" formControlName="banos">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5+</option>
+            <option *ngFor="let b of [0,1,2,3,4,5]" [value]="b">{{ b === 5 ? '5+' : b }}</option>
           </select>
         </div>
 
         <div class="col-md-4 mb-3">
           <label class="form-label">Nº Parqueaderos</label>
           <select class="form-select" formControlName="parqueaderos">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4+</option>
+            <option *ngFor="let p of [0,1,2,3,4]" [value]="p">{{ p === 4 ? '4+' : p }}</option>
           </select>
         </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Área construida (m²)</label>
-        <input type="number" formControlName="medidas" class="form-control" placeholder="Ej: 120">
+        <input type="number" class="form-control" formControlName="medidas" placeholder="Ej: 120">
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Descripción de tu inmueble</label>
-        <textarea class="form-control" formControlName="descripcion" placeholder="Describe tu propiedad con detalles importantes..."></textarea>
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" formControlName="descripcion" placeholder="Describe tu propiedad..."></textarea>
       </div>
     </div>
 
-    <!-- Sección 4: Ubicación -->
+    <!-- Ubicación -->
     <div class="form-section">
-      <h3 class="section-title">Agrega la ubicación de tu inmueble</h3>
-
-      <div class="col-12">
-        <label class="form-label">ubicacion: </label>
-        <div id="mapa"></div>
-      </div>
+      <h3 class="section-title">Ubicación</h3>
+      <label class="form-label">Ubicación:</label>
+      <div id="mapa"></div>
     </div>
 
-    <!-- Sección 5: Imágenes -->
-     <!-- <div class="form-section">
-        <h3 class="section-title">Imágenes de tu inmueble</h3>
+    <!-- Imágenes -->
+    <h3 class="section-title">Imágenes del inmueble</h3>
+    <div class="image-upload" id="imageUpload"
+         (click)="fileInput.click()"
+         (dragover)="onDragOver($event)"
+         (drop)="onDrop($event)">
+      <div class="upload-icon">
+        <i class="bi bi-cloud-arrow-up"></i>
+      </div>
+      <p>Haz clic o arrastra imágenes aquí para subirlas</p>
+      <p class="text-muted">Máximo 10 imágenes (JPEG, PNG)</p>
+      <input #fileInput type="file" multiple accept="image/jpeg,image/png" hidden (change)="onFileSelected($event)">
+    </div>
 
-        <div class="image-upload" id="imageUpload">
-          <div class="upload-icon">
-            <i class="bi bi-cloud-arrow-up"></i>
+    <div id="imagePreview" class="mt-3 row">
+      <div class="col-md-3 mb-3" *ngFor="let img of imagenesPreview; let i = index">
+        <div class="card">
+          <img [src]="img" class="card-img-top" alt="Imagen {{ i + 1 }}">
+          <div class="card-body text-center">
+            <button class="btn btn-sm btn-danger" (click)="eliminarImagen(i)">Eliminar</button>
           </div>
-          <p>Haz clic o arrastra imágenes aquí para subirlas</p>
-          <p class="text-muted">Máximo 10 imágenes (JPEG, PNG)</p>
         </div>
-
-        <div id="imagePreview" class="mt-3 row"></div>
       </div>
-      -->
+    </div>
 
-    <!-- Sección 5: Imágenes -->
+    <!-- Documentos PDF -->
+    <h3 class="section-title">Documentos del inmueble (PDF)</h3>
 
-    <div class="form-section">
-      <h3 class="section-title">Imágenes de tu inmueble</h3>
-
-      <div class="image-upload" id="imageUpload">
-        <div class="upload-icon">
-          <i class="bi bi-cloud-arrow-up"></i>
-        </div>
-        <p>Haz clic o arrastra imágenes aquí para subirlas</p>
-        <p class="text-muted">Máximo 10 imágenes (JPEG, PNG)</p>
+    <div class="pdf-upload" id="pdfUpload"
+         (click)="pdfInput.click()"
+         (dragover)="onDragOverPDF($event)"
+         (drop)="onDropPDF($event)">
+      <div class="upload-icon">
+        <i class="bi bi-file-earmark-pdf"></i>
       </div>
-      
+      <p>Haz clic o arrastra archivos PDF aquí para subirlos</p>
+      <p class="text-muted">Máximo 5 archivos PDF</p>
+      <input #pdfInput type="file" multiple accept="application/pdf" hidden (change)="onPDFSelected($event)">
+    </div>
 
-      <div id="imagePreview" class="mt-3 row"></div>
+    <div id="pdfPreview" class="mt-3">
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let pdf of pdfArchivos; let i = index">
+          {{ pdf.name }}
+          <button class="btn btn-sm btn-danger" (click)="eliminarPDF(i)">Eliminar</button>
+        </li>
+      </ul>
     </div>
 
 
-      <!-- Sección 6: Información de contacto -->
+
+
+    <!-- Información de contacto -->
     <div class="form-section">
       <h3 class="section-title">Información de contacto</h3>
-
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Nombre completo</label>
-          <input type="text" formControlName="nombre" class="form-control" required>
+          <input type="text" class="form-control" formControlName="nombreContacto">
         </div>
-
         <div class="col-md-6 mb-3">
-          <label class="form-label">Teléfono de contacto</label>
-          <input type="tel" formControlName="telefono" class="form-control" required>
+          <label class="form-label">Teléfono</label>
+          <input type="tel" class="form-control" formControlName="telefonoContacto">
         </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Correo electrónico</label>
-        <input type="email" formControlName="email" class="form-control" required>
+        <input type="email" class="form-control" formControlName="correoContacto">
       </div>
     </div>
 
     <div class="form-navigation">
-      <button type="button" routerLink="/inicio" class="btn btn-outline-secondary">
+      <button type="button" (click)="redireccionamiento.redirigirAHomeIngresado()" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left"></i> Volver al Inicio
       </button>
       <button type="submit" class="btn btn-primary">Publicar Inmueble</button>
     </div>
   </form>
 </div>
-
-</body>
-</html>

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {UserResponse} from '../dto/user-response';
 import {UserRegistrationRequest} from '../dto/user-registration-request';
 import {DesvincularRequestDto} from '../dto/desvincular-request-dto';
 import {User} from '../modelo/User';
 import {AuthService} from './auth.service';
 import {TokenResponse} from '../dto/token-response';
+import {CaptacionInmuebleDTO} from '../dto/captacion-inmueble-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -57,9 +58,6 @@ export class UsersService {
       }
     });
   }
-
-
-
 
 
 }

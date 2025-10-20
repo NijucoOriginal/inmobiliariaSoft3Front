@@ -1,22 +1,19 @@
 export interface CaptacionInmuebleDTO {
 
-  departamento: string,
-  tipoNegocio: string,
-  nombreAgente: string,
-  tipoInmueble: string,
+  latitud: number;
+  longitud: number;
+  tipoNegocio: string;
+  tipo: string,
   medidas: number,
   habitaciones: number,
   banos: number,
   descripcion: string,
-  estado: string,
   precio: number,
-  ciudad: string,
   cantidadParqueaderos: number,
   telefonoContacto: string,
   nombreContacto: string,
   correoContacto: string,
-  imagenes: File[],
-  estrato: number
+  estado: string,
 
   /*Los siguientes datos seran determinados en el back-end:
     --Los datos del agente inmobiliario
