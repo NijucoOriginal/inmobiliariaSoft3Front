@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,4 +20,33 @@ export class RedireccionService {
       this.router.navigate(['/unauthorized']);
     }
   }
+
+  redirigirALogin() {
+    this.router.navigate(['/login']);
+  }
+
+  redirigirARegistro() {
+    this.router.navigate(['/registro']);
+  }
+
+  redirigirARegistroInmueble() {
+    this.router.navigate(['/registroInmueble']);
+  }
+
+  redirigirAPerfil() {
+    this.router.navigate(['/perfil']);
+  }
+
+  redirigirAHome() {
+    this.router.navigate(['/']);
+  }
+
+  redirigirAHomeIngresado() {
+    this.router.navigate(['/inicio']);
+  }
+
+  redirigirAPoliticaDatos() {
+    this.router.navigate(['/politicaDatos']);
+  }
+
 }

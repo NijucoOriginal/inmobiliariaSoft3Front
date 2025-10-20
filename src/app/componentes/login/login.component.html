@@ -30,22 +30,29 @@
     </div>
 
     <div class="mb-3">
-      <label for="contrasena" class="form-label">CONTRASEÑA</label>
-      <input type="password" class="form-control" formControlName="contrasena" id="contrasena" placeholder="Ingresa tu contraseña">
-      <div *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
-        debe de ingresar su contraseña.
-      </div>
+        <label for="contrasena" class="form-label">CONTRASEÑA</label>
+      <div class="password-toggle">
+
+        <input [type]="verContra ? 'text' : 'password'" class="form-control" id="password" formControlName="contrasena" placeholder="Crea una contraseña segura" required>
+        <div *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">debe de ingresar su contraseña.</div>
+        <span class="password-toggle-icon" (click)="mostrarContrasenia()">
+                        <i class="bi" [ngClass]="verContra ? 'bi-eye-slash' : 'bi-eye'"></i>
+                    </span>
+        </div>
     </div>
 
     <div class="forgot-password">
       <a routerLink="/recuperar">¿Olvidó su contraseña?</a>
     </div>
 
+
     <button type="submit"  class="btn btn-primary">LOGIN</button>
   </form>
 
   <div class="login-footer">
-    <p>¿No tienes una cuenta? <a (click)="redireccionamiento.redirigirALogin()">Regístrate aquí</a></p>
+
+    <p>¿No tienes una cuenta? <a (click)="redireccionamiento.redirigirARegistro()">Regístrate aquí</a></p>
+
   </div>
 </div>
 

@@ -9,6 +9,10 @@ import {RegistroInmuebleComponent} from './componentes/registro-inmueble/registr
 import {RecuperarContraseniaComponent} from './componentes/recuperar-contrasenia/recuperar-contrasenia.component';
 import {ActivarComponent} from './componentes/activar-cuenta/activar.component';
 import { InicioDefaultComponent } from './componentes/inicio-default/inicio-default.component';
+import {PerfilComponent} from './componentes/perfil/perfil.component';
+import {
+  PoliticaTratamientoDatosComponent
+} from './componentes/politica-tratamiento-datos/politica-tratamiento-datos.component';
 
 import {authGuard} from './guards/auth.guard';
 import {rolesGuard} from './guards/roles.guard';
@@ -32,6 +36,10 @@ export const routes: Routes = [
   {
     path: 'registro',
     component: RegistroComponent
+  },
+  {
+    path: 'politicaDatos',
+    component: PoliticaTratamientoDatosComponent
   },
   // Rutas protegidas para usuarios logueados
   {
@@ -70,6 +78,10 @@ export const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
   },
   {
     path: '**',
