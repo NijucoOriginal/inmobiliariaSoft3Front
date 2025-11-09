@@ -26,6 +26,7 @@ export class AuthService {
   private readonly USER_LASTNAME_KEY='userLastName'
   private readonly USER_DOCUMENT_KEY='documento'
   private readonly USER_PASSWORD_KEY='userPassword'
+  private readonly INMUEBLES_KEY='inmuebles'
   constructor(private http: HttpClient, private redireccionService: RedireccionService) {}
 
   /**
@@ -124,6 +125,7 @@ export class AuthService {
     localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
     localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
     localStorage.setItem(this.USER_PASSWORD_KEY,tokenDecodificado.contrasena)
+    localStorage.setItem(this.INMUEBLES_KEY,JSON.stringify(response.listaInmuebles))
   }
 
  public getToken(): string | null {

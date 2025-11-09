@@ -137,7 +137,7 @@ export class RegistroInmuebleComponent implements OnInit{
       estado: ['', [Validators.required]],
       habitaciones: ['', [Validators.required]],
       banos: ['', [Validators.required]],
-      parqueaderos: ['', [Validators.required]],
+      cantidadParqueaderos: ['', [Validators.required]],
       medidas: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       nombreContacto: ['', [Validators.required]],
@@ -158,13 +158,13 @@ export class RegistroInmuebleComponent implements OnInit{
         latitud: datosFormulario.latitud,
         longitud: datosFormulario.longitud,
         tipoNegocio: datosFormulario.tipoNegocio,
-        tipo: datosFormulario.tipoInmueble,
+        tipo: datosFormulario.tipo,
         medidas: datosFormulario.medidas,
         habitaciones: datosFormulario.habitaciones,
         banos: datosFormulario.banos,
         descripcion: datosFormulario.descripcion,
         precio: datosFormulario.precio,
-        cantidadParqueaderos: datosFormulario.parqueaderos,
+        cantidadParqueaderos: datosFormulario.cantidadParqueaderos,
         telefonoContacto: datosFormulario.telefonoContacto,
         nombreContacto: datosFormulario.nombreContacto,
         correoContacto: datosFormulario.correoContacto,
@@ -175,16 +175,25 @@ export class RegistroInmuebleComponent implements OnInit{
       const formData = new FormData();
 
       // Agregar el DTO como JSON
-      formData.append('inmuebleDto', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+      Object.entries(dto).forEach(([key, value]) => {
+        formData.append(key, value.toString());
+      });
+
       formData.append('correoUsuario', localStorage.getItem('userEmail') || '');
+
+
 
       this.imagenes.forEach((img) => {
         formData.append('imagenes', img); // mismo nombre para todos
       });
 
       this.pdfArchivos.forEach((pdf) => {
-        formData.append('documentosImportantes', pdf); // mismo nombre para todos
+        formData.append('documentosImportantes' + '', pdf);
       });
+
+      console.log("=== DTO listo para enviar ===");
+      console.log(dto);
+
 
       for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]);

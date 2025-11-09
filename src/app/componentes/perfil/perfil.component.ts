@@ -64,18 +64,20 @@ export class PerfilComponent {
     });
   }
 
-  propiedades = [
-    {
-      titulo: 'Casa campestre en Armenia',
-      tipo: 'VENTA',
-      imagen: 'https://images.unsplash.com/photo-1560184897-d4fd4d1e3d99?w=800'
-    },
-    {
-      titulo: 'Apartamento moderno',
-      tipo: 'ALQUILER',
-      imagen: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800'
+  propiedades: any[] = [];
+
+  ngOnInit(): void {
+    const datos = localStorage.getItem("inmuebles");
+    if (datos) {
+      try {
+        this.propiedades = JSON.parse(datos);
+      } catch (error) {
+        console.error('Error al parsear inmuebles desde localStorage:', error);
+        this.propiedades = [];
+      }
     }
-  ];
+  }
+
 
 
 
