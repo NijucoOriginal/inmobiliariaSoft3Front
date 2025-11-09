@@ -9,21 +9,33 @@ export const usuarioInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // No aplicar el interceptor a las rutas de registro o autenticación
+  // No aplicar el interceptor a login o registro
   if (req.url.includes('/api/usuarios') || req.url.includes('/api/auth')) {
     return next(req);
   }
 
-  if ( !authService.isAuthenticated() ) {
+  if (!authService.isAuthenticated()) {
     return next(req);
   }
 
   const token = authService.getToken();
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+
+  // ✅ Si el cuerpo es FormData, no tocar los headers de Content-Type
+  let authReq = req;
+  if (req.body instanceof FormData) {
+    authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } else {
+    authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
 
   return next(authReq).pipe(
     catchError((error) => {

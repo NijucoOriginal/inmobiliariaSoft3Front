@@ -165,10 +165,10 @@ export class RegistroInmuebleComponent implements OnInit{
         descripcion: datosFormulario.descripcion,
         precio: datosFormulario.precio,
         cantidadParqueaderos: datosFormulario.parqueaderos,
-        telefonoContacto: datosFormulario.telfonoContacto,
+        telefonoContacto: datosFormulario.telefonoContacto,
         nombreContacto: datosFormulario.nombreContacto,
         correoContacto: datosFormulario.correoContacto,
-        estado: datosFormulario.estadoInmueble
+        estado: datosFormulario.estado
       };
 
       // 3. Crear FormData para archivos
