@@ -1,21 +1,25 @@
-
+import {TipoNegocio} from '../modelo/TipoNegocio';
+import {TipoInmueble} from '../modelo/TipoInmueble';
+import {EstadoInmueble} from '../modelo/EstadoInmueble';
+import {EstadoTransaccion} from '../modelo/EstadoTransaccion';
 
 export interface InmuebleResponse {
-  id: number;
-  tipoNegocio: string;
-  tipo: string;
+  longitud: number;
+  latitud: number;
+  tipoNegocio: TipoNegocio;
+  agenteAsociado: number; // ID del agente
+  asesorLegal: number;    // ID del asesor legal
+  tipo: TipoInmueble;
   medidas: number;
   habitaciones: number;
   banos: number;
   descripcion: string;
-  estado: string;
-  estadoTransa: string;
+  estado: EstadoInmueble;
   precio: number;
+  estadoTransa: EstadoTransaccion;
   cantidadParqueaderos: number;
   telefonoContacto: string;
   nombreContacto: string;
   correoContacto: string;
-  latitud: number;
-  longitud: number;
-
+  imagenes: string[]; // ✅ solo URLs
 }

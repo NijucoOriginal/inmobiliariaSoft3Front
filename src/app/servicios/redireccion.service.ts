@@ -9,13 +9,13 @@ export class RedireccionService {
 
   /**
    * Redirige al usuario según su rol.
-   * @param roles Lista de roles del usuario.
+   * @param rol Lista de roles del usuario.
    */
-  redirigirSegunRol(roles: string[]): void {
-    if (roles.includes('CLIENTE')) {
-      this.router.navigate(['/inicio']);
-    } else if (roles.includes('ADMIN')) {
-      this.router.navigate(['/admin']);
+  redirigirSegunRol(rol: string): void {
+    if (rol.includes('CLIENTE')) {
+      this.router.navigate(['/perfil']);
+    } else if (rol.includes('AGENTE')) {
+      this.router.navigate(['/ventanaAgente']);
     } else {
       this.router.navigate(['/unauthorized']);
     }

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../../servicios/auth.service';
 import {CommonModule, NgClass} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UsersService} from '../../servicios/users.service';
 import {Router} from '@angular/router';
 import {RedireccionService} from '../../servicios/redireccion.service';
+import {InmuebleServiceService} from '../../servicios/inmueble-service.service';
 
 @Component({
   selector: 'app-perfil',
@@ -18,7 +19,7 @@ import {RedireccionService} from '../../servicios/redireccion.service';
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css'
 })
-export class PerfilComponent {
+export class PerfilComponent implements OnInit {
   perfilForm!: FormGroup;
   email = 'correoUsuario';
   nombre = 'Nombre Usuario';
@@ -40,7 +41,7 @@ export class PerfilComponent {
   loading: boolean = false;
 
 
-  constructor(private authService: AuthService,private userService:UsersService, private fb: FormBuilder,private redireccionamiento: RedireccionService) {
+  constructor(private authService: AuthService,private userService:UsersService, private fb: FormBuilder,private redireccionamiento: RedireccionService, protected inmuebleService: InmuebleServiceService) {
     this.email = this.authService.getUserEmail() || 'correoUsuario';
     this.nombre = this.authService.obtenerNombreUsuario() || 'Nombre Usuario';
     this.apellido = this.authService.obtenerApellidoUsuario() || 'Apellido Usuario';
@@ -67,15 +68,17 @@ export class PerfilComponent {
   propiedades: any[] = [];
 
   ngOnInit(): void {
-    const datos = localStorage.getItem("inmuebles");
-    if (datos) {
-      try {
-        this.propiedades = JSON.parse(datos);
-      } catch (error) {
-        console.error('Error al parsear inmuebles desde localStorage:', error);
-        this.propiedades = [];
+    const correoUsuario = localStorage.getItem('userEmail') || '';
+
+    this.inmuebleService.obtenerListaInmueblesUsuario(correoUsuario).subscribe({
+      next: (inmuebles) => {
+        this.propiedades = inmuebles;
+        console.log('Propiedades del usuario cargadas:', inmuebles);
+      },
+      error: (err) => {
+        console.error('Error al obtener propiedades del usuario:', err);
       }
-    }
+    });
   }
 
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapaService} from '../../mapa.service';
 import {FormBuilder, FormGroup, isFormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UsersService} from '../../servicios/users.service';
@@ -20,7 +20,7 @@ import {InmuebleServiceService} from '../../servicios/inmueble-service.service';
   templateUrl: './registro-inmueble.component.html',
   styleUrl: './registro-inmueble.component.css'
 })
-export class RegistroInmuebleComponent implements OnInit{
+export class RegistroInmuebleComponent implements OnInit, OnDestroy{
   registroInmuebleForm!: FormGroup;
   imagenes: File[] = [];
   imagenesPreview: string[] = [];
@@ -108,6 +108,18 @@ export class RegistroInmuebleComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder, private mapaService: MapaService,protected redireccionamiento: RedireccionService,private inmuebleService: InmuebleServiceService) {
     this.crearFormularioTexto();
+  }
+
+  ngOnDestroy(): void {
+    this.imagenes = [];
+    this.imagenesPreview = [];
+    this.pdfArchivos = [];
+
+    const inputImagenes = document.getElementById('inputImagenes') as HTMLInputElement;
+    const inputPDFs = document.getElementById('inputPDFs') as HTMLInputElement;
+    if (inputImagenes) inputImagenes.value = '';
+    if (inputPDFs) inputPDFs.value = '';
+
   }
 
 
@@ -205,10 +217,17 @@ export class RegistroInmuebleComponent implements OnInit{
           console.log('Captación registrada correctamente');
           this.showAlert('success', 'Inmueble registrado exitosamente');
           this.redireccionamiento.redirigirAPerfil();
-        },
-        error: (err) => {
-          console.error('Error al registrar captación:', err);
-          this.showAlert('error', 'Error al resgistrar el inmueble');
+
+          // 🔄 Limpiar formulario y archivos
+          this.registroInmuebleForm.reset();
+          this.imagenes = [];
+          this.imagenesPreview = [];
+          this.pdfArchivos = [];
+
+          const inputImagenes = document.getElementById('inputImagenes') as HTMLInputElement;
+          const inputPDFs = document.getElementById('inputPDFs') as HTMLInputElement;
+          if (inputImagenes) inputImagenes.value = '';
+          if (inputPDFs) inputPDFs.value = '';
         }
       });
     }

@@ -125,7 +125,8 @@ export class AuthService {
     localStorage.setItem(this.USER_PHONE_KEY, tokenDecodificado.telefono);
     localStorage.setItem(this.USER_DOCUMENT_KEY, tokenDecodificado.documentoIdentidad);
     localStorage.setItem(this.USER_PASSWORD_KEY,tokenDecodificado.contrasena)
-    localStorage.setItem(this.INMUEBLES_KEY,JSON.stringify(response.listaInmuebles))
+    //localStorage.setItem(this.INMUEBLES_KEY,JSON.stringify(response.listaInmuebles))
+    console.log(localStorage.getItem(this.ROLES_KEY))
   }
 
  public getToken(): string | null {

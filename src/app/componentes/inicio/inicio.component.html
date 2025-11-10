@@ -184,21 +184,21 @@
         <div class="col-md-4" *ngFor="let propiedad of propiedadesDestacadas">
           <div class="property-card card">
             <div class="position-relative">
-              <img [src]="propiedad.imagen" class="card-img-top" [alt]="propiedad.titulo">
-              <span class="property-badge">{{propiedad.badge}}</span>
+              <img [src]="propiedad.imagenes[0]" class="card-img-top" alt="Imagen del inmueble">
+              <span class="property-badge">{{ propiedad.estadoTransa }}</span>
             </div>
             <div class="card-body">
-              <h5 class="property-price">{{propiedad.precio}}</h5>
-              <h6 class="card-title">{{propiedad.titulo}}</h6>
-              <p class="card-text">{{propiedad.descripcion}}</p>
+              <h5 class="property-price">{{ propiedad.precio | currency:'COP' }}</h5>
+              <h6 class="card-title">{{ propiedad.tipo }}</h6>
+              <p class="card-text">{{ propiedad.descripcion }}</p>
               <div class="d-flex justify-content-between">
-                <span><i class="bi bi-house-door"></i> {{propiedad.tipo}}</span>
-                <span><i class="bi bi-geo-alt"></i> {{propiedad.area}}</span>
+                <span><i class="bi bi-house-door"></i> {{ propiedad.tipoNegocio }}</span>
+                <span><i class="bi bi-geo-alt"></i> {{ propiedad.medidas }} m²</span>
               </div>
               <hr>
               <div class="d-flex justify-content-between">
-                <span><i class="bi bi-door-closed"></i> {{propiedad.habitaciones}} Habitaciones</span>
-                <span><i class="bi bi-droplet"></i> {{propiedad.banos}} Baños</span>
+                <span><i class="bi bi-door-closed"></i> {{ propiedad.habitaciones }} Habitaciones</span>
+                <span><i class="bi bi-droplet"></i> {{ propiedad.banos }} Baños</span>
               </div>
               <div class="d-grid gap-2 mt-3">
                 <a class="btn btn-outline-primary w-100" (click)="redireccionamiento.redirigirALogin()">Ver Detalles</a>

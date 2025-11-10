@@ -1,0 +1,128 @@
+/* ==== NAVBAR ==== */
+.navbar {
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #2c3e50 !important;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #34495e !important;
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff !important;
+}
+
+/* ==== SECCIÓN PRINCIPAL ==== */
+.section-title {
+  text-align: center;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  text-align: center;
+  color: #6c757d;
+}
+
+/* ==== TARJETAS DE INMUEBLE ==== */
+.property-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.property-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen del inmueble */
+.property-card img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Badge con tipo de negocio (Venta, Arriendo, etc.) */
+.property-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ==== CONTENIDO DE LA TARJETA ==== */
+.property-price {
+  color: #28a745;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.property-card i {
+  margin-right: 5px;
+  color: #007bff;
+}
+
+/* ==== CHECKBOX ==== */
+.form-check-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  border: 2px solid #007bff;
+  transition: all 0.3s ease;
+}
+
+.form-check-input:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* ==== BOTÓN DE ACEPTAR ==== */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004b9a;
+  transform: scale(1.03);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}

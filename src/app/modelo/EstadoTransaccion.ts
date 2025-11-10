@@ -1,0 +1,6 @@
+export enum EstadoTransaccion {
+  PENDIENTE = 'PENDIENTE',
+  VENDIDO = 'VENDIDO',
+  RESERVADO = 'RESERVADO',
+  CANCELADO = 'CANCELADO'
+}
