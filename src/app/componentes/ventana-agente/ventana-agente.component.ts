@@ -1,30 +1,31 @@
-import { Component } from '@angular/core';
-import {InmuebleServiceService} from '../../servicios/inmueble-service.service';
-import {InmuebleResponse} from '../../dto/inmueble-response';
-import {CurrencyPipe} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { InmuebleServiceService } from '../../servicios/inmueble-service.service';
+import { InmuebleResponse } from '../../dto/inmueble-response';
+import { CurrencyPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inmuebles-proceso',
   templateUrl: './ventana-agente.component.html',
+  styleUrls: ['./ventana-agente.component.css'],
+  standalone: true,
   imports: [
+    CommonModule,       // ✅ Esto es lo que faltaba
     CurrencyPipe,
     FormsModule
-  ],
-  styleUrls: ['./ventana-agente.component.css']
+  ]
 })
-export class VentanaAgenteComponent {
+export class VentanaAgenteComponent implements OnInit {
   userName = 'Nicolás';
-
-  constructor(protected inmuebleService: InmuebleServiceService) {
-  }
-
   propiedadesDestacadas: InmuebleResponse[] = [];
+  propiedadSeleccionada: InmuebleResponse | null = null;
 
-
+  constructor(protected inmuebleService: InmuebleServiceService) {}
 
   ngOnInit(): void {
-    this.inmuebleService.obtenerListaDeInmuebles().subscribe({
+    const correoUsuario = localStorage.getItem('userEmail') || '';
+    this.inmuebleService.obtenerListaInmueblesAgente(correoUsuario).subscribe({
       next: (inmuebles) => {
         this.propiedadesDestacadas = inmuebles;
         console.log('Propiedades destacadas cargadas:', inmuebles);
@@ -35,13 +36,27 @@ export class VentanaAgenteComponent {
     });
   }
 
-
-  /*aceptarProceso() {
-    const seleccionados = this.listaInmuebles.filter(i => i.seleccionado);
-    console.log('Inmuebles seleccionados:', seleccionados);
-    // Aquí podrías enviar los IDs seleccionados al backend
+  aceptarProceso(_t15: InmuebleResponse): void {
+    console.log('Proceso aceptado con:', this.propiedadSeleccionada);
+    // lógica adicional aquí
   }
 
-   */
-}
+  cancelarProceso(): void {
+    this.propiedadSeleccionada = null;
+    console.log('Proceso cancelado');
+  }
 
+
+  onSeleccionarInmueble(event: Event, inmueble: InmuebleResponse): void {
+    const input = event.target as HTMLInputElement;
+    const checked = input.checked;
+
+    if (checked) {
+      this.propiedadSeleccionada = inmueble;
+    } else {
+      this.propiedadSeleccionada = null;
+    }
+  }
+
+
+}

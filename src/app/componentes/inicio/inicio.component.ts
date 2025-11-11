@@ -81,4 +81,5 @@ export class InicioComponent implements OnInit, AfterViewInit {
     window.location.reload();
   }
 
+
 }

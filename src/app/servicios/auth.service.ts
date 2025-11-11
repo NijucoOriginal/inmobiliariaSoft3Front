@@ -185,6 +185,27 @@ return localStorage.getItem(this.TOKEN_KEY);
     return <string>localStorage.getItem(this.USER_PASSWORD_KEY)
   }
 
+  getPrimerRol(): string | null {
+    const roles = localStorage.getItem(this.ROLES_KEY);
+    if (!roles || roles === 'undefined') {
+      return null;
+    }
+
+    try {
+      const parsed = JSON.parse(roles);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed[0];
+      } else if (typeof parsed === 'string') {
+        return parsed;
+      }
+    } catch (e) {
+      // Si no es JSON válido, asumimos que es un string plano
+      return roles;
+    }
+
+    return null;
+  }
+
  /* modificarCredencialesToken(token: TokenResponse): void {
     const tokenDecodificado: any = jwtDecode(token.token);
     localStorage.setItem(this.TOKEN_KEY, token.token);
