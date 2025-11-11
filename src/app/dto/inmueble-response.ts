@@ -21,5 +21,6 @@ export interface InmuebleResponse {
   telefonoContacto: string;
   nombreContacto: string;
   correoContacto: string;
-  imagenes: string[]; // ✅ solo URLs
+  imagenes: string[];
+  id: number;// ✅ solo URLs
 }

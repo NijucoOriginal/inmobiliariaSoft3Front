@@ -103,6 +103,7 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
+    this.redireccionService.redirigirAHome();
   }
 
   limpiarStorage(): void {

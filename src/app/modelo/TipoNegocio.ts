@@ -1,4 +1,5 @@
 export enum TipoNegocio {
+  ALQUILER = 'ALQUILER',
   VENTA = 'VENTA',
-  ARRIENDO = 'ARRIENDO'
+  PERMUTACION = 'PERMUTACION',
 }

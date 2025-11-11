@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InmuebleServiceService } from '../../servicios/inmueble-service.service';
-import { InmuebleResponse } from '../../dto/inmueble-response';
-import { CurrencyPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {CommonModule, CurrencyPipe} from '@angular/common';
+import {InmuebleServiceService} from '../../servicios/inmueble-service.service';
+import {InmuebleResponse} from '../../dto/inmueble-response';
+import {FormsModule} from '@angular/forms';
+import {TipoNegocio} from '../../modelo/TipoNegocio';
+import {AuthService} from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-inmuebles-proceso',
@@ -17,15 +18,16 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class VentanaAgenteComponent implements OnInit {
+  @Output() logout = new EventEmitter<void>();
   userName = 'Nicolás';
   propiedadesDestacadas: InmuebleResponse[] = [];
   propiedadSeleccionada: InmuebleResponse | null = null;
+  correoUsuario = localStorage.getItem('userEmail') || '';
 
-  constructor(protected inmuebleService: InmuebleServiceService) {}
+  constructor(protected inmuebleService: InmuebleServiceService,protected authservice: AuthService) {}
 
   ngOnInit(): void {
-    const correoUsuario = localStorage.getItem('userEmail') || '';
-    this.inmuebleService.obtenerListaInmueblesAgente(correoUsuario).subscribe({
+    this.inmuebleService.obtenerListaInmueblesAgente(this.correoUsuario).subscribe({
       next: (inmuebles) => {
         this.propiedadesDestacadas = inmuebles;
         console.log('Propiedades destacadas cargadas:', inmuebles);
@@ -36,27 +38,56 @@ export class VentanaAgenteComponent implements OnInit {
     });
   }
 
-  aceptarProceso(_t15: InmuebleResponse): void {
-    console.log('Proceso aceptado con:', this.propiedadSeleccionada);
-    // lógica adicional aquí
-  }
+  aceptarProceso(inmueble: InmuebleResponse): void {
+    console.log('Inmueble recibido desde el botón:', inmueble);
 
-  cancelarProceso(): void {
-    this.propiedadSeleccionada = null;
-    console.log('Proceso cancelado');
-  }
+    let nuevoEstado = 'EN_PROCESO';
 
-
-  onSeleccionarInmueble(event: Event, inmueble: InmuebleResponse): void {
-    const input = event.target as HTMLInputElement;
-    const checked = input.checked;
-
-    if (checked) {
-      this.propiedadSeleccionada = inmueble;
-    } else {
-      this.propiedadSeleccionada = null;
+    if (inmueble.tipoNegocio === TipoNegocio.ALQUILER) {
+      nuevoEstado = 'PROCESOALQUIER';
     }
+
+    if (inmueble.tipoNegocio === TipoNegocio.PERMUTACION) {
+      nuevoEstado = 'PROCESOPERMUTACION';
+    }
+
+    if (inmueble.tipoNegocio === TipoNegocio.VENTA) {
+      nuevoEstado = 'PROCESOCOMPRA';
+    }
+
+    this.inmuebleService.actualizarEstadoTransaccion(inmueble.id, nuevoEstado).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+        this.propiedadSeleccionada = response;
+
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error al actualizar estado:', err);
+      }
+    });
   }
 
 
+  cancelarProceso(inmueble: InmuebleResponse): void {
+    console.log('Inmueble recibido desde el botón:', inmueble);
+
+    let nuevoEstado = 'NOADMITIDA';
+
+    this.inmuebleService.actualizarEstadoTransaccion(inmueble.id, nuevoEstado).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+        this.propiedadSeleccionada = response;
+
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error al actualizar estado:', err);
+      }
+    });
+  }
+
+  onLogout() {
+    this.authservice.logout();
+  }
 }

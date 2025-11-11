@@ -28,4 +28,10 @@ export class InmuebleServiceService {
   public obtenerListaInmueblesUsuario(email: string): Observable<InmuebleResponse[]> {
     return this.http.get<InmuebleResponse[]>(`${this.url}/${email}`);
   }
+
+  public actualizarEstadoTransaccion(id: number, estadoTransa: string): Observable<InmuebleResponse> {
+    return this.http.put<InmuebleResponse>(`${this.url}/agente/${estadoTransa}/${id}`, null);
+  }
+
+
 }
