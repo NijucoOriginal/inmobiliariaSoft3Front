@@ -13,8 +13,8 @@ import {CaptacionInmuebleDTO} from '../dto/captacion-inmueble-dto';
   providedIn: 'root'
 })
 export class UsersService {
-  //private url = "https://inmobiliariasoft3back2-0.onrender.com/api/usuarios";
-  private url='http://localhost:8080/api/usuarios';
+  private url = "https://inmobiliariasoft3back2-0.onrender.com/api/usuarios";
+  //private url='http://localhost:8080/api/usuarios';
   constructor(private http: HttpClient, private authservice: AuthService) {}
 
   public registrar(user: UserRegistrationRequest): Observable<UserResponse> {

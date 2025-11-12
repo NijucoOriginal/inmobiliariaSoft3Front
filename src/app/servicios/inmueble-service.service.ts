@@ -8,7 +8,9 @@ import { InmuebleResponse } from '../dto/inmueble-response'; // Asegúrate de te
   providedIn: 'root'
 })
 export class InmuebleServiceService {
-  private url = 'http://localhost:8080/api/inmuebles';
+  private url = 'https://inmobiliariasoft3back2-0.onrender.com/api/inmuebles';
+
+  //private url = 'http://localhost:8080/api/inmuebles';
 
   constructor(private http: HttpClient) {}
 
