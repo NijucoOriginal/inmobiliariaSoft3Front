@@ -53,22 +53,84 @@
 
 
           <!-- Botones de acción -->
-          <div class="d-flex justify-content-center gap-2" *ngIf="inmueble.estadoTransa === 'PENDIENTE'">
-            <button
-              class="btn btn-success btn-sm"
-              (click)="aceptarProceso(inmueble)">
-              Aceptar proceso
-            </button>
+          <div class="d-flex justify-content-center gap-2">
+            <!-- Aceptar y Cancelar: solo si está PENDIENTE -->
+            <ng-container *ngIf="inmueble.estadoTransa === 'PENDIENTE'">
+              <button
+                class="btn btn-success btn-sm btn-action"
+                (click)="aceptarProceso(inmueble)">
+                Aceptar proceso
+              </button>
 
-            <button
-              class="btn btn-danger btn-sm"
-              (click)="cancelarProceso(inmueble)">
-              Cancelar proceso
-            </button>
+              <button
+                class="btn btn-danger btn-sm btn-action"
+                (click)="cancelarProceso(inmueble)">
+                Cancelar proceso
+              </button>
+            </ng-container>
+
+            <!-- Botón de Transferir: si no está PENDIENTE ni NOADMITIDA -->
+            <ng-container *ngIf="inmueble.estadoTransa !== 'PENDIENTE' && inmueble.estadoTransa !== 'NOADMITIDA'">
+              <button class="btn btn-primary btn-sm btn-action" (click)="abrirModalTransferencia(inmueble)">
+                Transferir
+              </button>
+            </ng-container>
           </div>
+
         </div>
       </div>
     </div>
+
+    <!-- Modal de transferencia -->
+    <div class="modal-overlay" *ngIf="mostrarModalTransferencia">
+      <div class="modal-container">
+        <h5 class="text-center mb-3">Transferir inmueble</h5>
+        <p class="text-center text-muted mb-3">
+          Selecciona un usuario para transferir el inmueble:
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm text-center align-middle">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Documento</th>
+              <th>Teléfono</th>
+              <th>Rol</th>
+              <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let usuario of listaUsuarios">
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.apellido }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.documentoIdentidad }}</td>
+              <td>{{ usuario.telefono }}</td>
+              <td>{{ usuario.rol }}</td>
+              <td>
+                <button class="btn btn-outline-success btn-sm"
+                        >
+                  Transferir
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center mt-3">
+          <button class="btn btn-secondary btn-sm" (click)="cerrarModalTransferencia()">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </section>
 

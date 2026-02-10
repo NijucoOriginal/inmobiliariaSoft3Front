@@ -5,6 +5,9 @@ import {InmuebleResponse} from '../../dto/inmueble-response';
 import {FormsModule} from '@angular/forms';
 import {TipoNegocio} from '../../modelo/TipoNegocio';
 import {AuthService} from '../../servicios/auth.service';
+import {UsersService} from '../../servicios/users.service';
+import {UserResponse} from '../../dto/user-response';
+import {UsuarioResponseDto} from '../../dto/usuario-response.dto';
 
 @Component({
   selector: 'app-inmuebles-proceso',
@@ -24,7 +27,7 @@ export class VentanaAgenteComponent implements OnInit {
   propiedadSeleccionada: InmuebleResponse | null = null;
   correoUsuario = localStorage.getItem('userEmail') || '';
 
-  constructor(protected inmuebleService: InmuebleServiceService,protected authservice: AuthService) {}
+  constructor(protected inmuebleService: InmuebleServiceService,protected authservice: AuthService,protected userService:UsersService) {}
 
   ngOnInit(): void {
     this.inmuebleService.obtenerListaInmueblesAgente(this.correoUsuario).subscribe({
@@ -90,4 +93,56 @@ export class VentanaAgenteComponent implements OnInit {
   onLogout() {
     this.authservice.logout();
   }
+
+  mostrarModalTransferencia = false;
+  listaUsuarios: any[] = [];
+  inmuebleSeleccionado: InmuebleResponse | null = null;
+
+// 🔹 Método para abrir el modal
+  abrirModalTransferencia(inmueble: InmuebleResponse): void {
+    this.inmuebleSeleccionado = inmueble;
+    this.mostrarModalTransferencia = true;
+
+    // Llamar al servicio para obtener la lista de usuarios habilitados
+    console.log("Enviando"+inmueble.propietario);
+    this.userService.obtenerTodosLosUsuariosHabilitados(inmueble.propietario,<string>this.authservice.getToken()).subscribe({
+      next: (usuarios: UsuarioResponseDto[]) => {
+        this.listaUsuarios = usuarios;
+        console.log('Usuarios habilitados cargados:', usuarios);
+      },
+      error: (err) => {
+        console.error('Error al obtener usuarios:', err);
+      }
+    });
+  }
+
+
+// 🔹 Método para cerrar el modal
+  cerrarModalTransferencia() {
+    this.mostrarModalTransferencia = false;
+    this.inmuebleSeleccionado = null;
+  }
+
+// 🔹 Método para ejecutar la transferencia
+  /*transferirInmueble(usuario: any) {
+    if (!this.inmuebleSeleccionado) return;
+
+    console.log(`Transfiriendo inmueble ${this.inmuebleSeleccionado.id} al usuario ${usuario.email}`);
+
+    this.inmuebleService.transferirInmueble(this.inmuebleSeleccionado.id, usuario.id).subscribe({
+      next: (res) => {
+        console.log('Inmueble transferido con éxito:', res);
+        this.cerrarModalTransferencia();
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error al transferir inmueble:', err);
+      }
+    });
+  }
+
+   */
+
+
+
 }

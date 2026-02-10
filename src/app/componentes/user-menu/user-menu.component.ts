@@ -25,4 +25,5 @@ export class UserMenuComponent {
 
     this.redireccionamiento.redirigirSegunRol(primerRol);
   }
+
 }

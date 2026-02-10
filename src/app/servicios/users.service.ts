@@ -8,6 +8,7 @@ import {User} from '../modelo/User';
 import {AuthService} from './auth.service';
 import {TokenResponse} from '../dto/token-response';
 import {CaptacionInmuebleDTO} from '../dto/captacion-inmueble-dto';
+import {UsuarioResponseDto} from '../dto/usuario-response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class UsersService {
   });
 }
 
+
   public actualizarDatosUsuario(email: string, nombre: string, apellido: string, telefono: string, documentoIdentidad: string): Observable<TokenResponse> {
 
     const token = this.authservice.getToken();
@@ -58,6 +60,16 @@ export class UsersService {
       }
     });
   }
+
+  public obtenerTodosLosUsuariosHabilitados(id: number, token: string): Observable<UsuarioResponseDto[]> {
+    return this.http.get<UsuarioResponseDto[]>(`${this.url}/agente/obtenerTodos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
 
 
 }
